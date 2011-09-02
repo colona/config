@@ -1,0 +1,43 @@
+source ~/.mutt/gpg.rc
+
+set realname='Colona'
+set signature="~/.sig"
+set mbox_type=Maildir
+set spoolfile="~/Maildir/"
+set folder="~/Maildir"
+set mask="!^\\.[^.]"
+set record="+.Sent"
+set postponed="+.INBOX.Drafts"
+mailboxes ! + `\
+for file in ~/Maildir/.*; do \
+   box=$(basename "$file"); \
+   if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
+       -a ! "$box" = '.subscriptions' ]; then \
+       echo -n "\"+$box\" "; \
+  fi; \
+done`
+
+set config_charset=utf8
+set editor = "vim '+set tw=72'"
+set sort=threads
+set sort_aux=last-date-received
+set beep=no
+set charset="utf8"
+set delete=yes
+set help=no
+set mark_old=no
+
+bind index j next-unread
+bind index k previous-unread
+bind index <up> previous-entry
+bind index <down> next-entry
+bind pager j next-unread
+bind pager k previous-unread
+bind pager <up> previous-entry
+bind pager <down> next-entry
+macro pager A "<tag-pattern>.\n<tag-prefix><clear-flag>N<untag-pattern>.\n" "mark all messages as read"
+macro index A "<tag-pattern>.\n<tag-prefix><clear-flag>N<untag-pattern>.\n" "mark all messages as read"
+macro index c "A<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager c "A<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
+macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"

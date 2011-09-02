@@ -1,0 +1,34 @@
+startup_message off
+deflogin on
+autodetach on
+vbell on
+defscrollback 1024
+
+# on Debian backspace should send char `\177':
+bindkey -k kb stuff "\177"
+
+# The vt100 description does not mention "dl". *sigh*
+termcapinfo vt100 dl=5\E[M
+
+hardstatus on
+# Set the hardstatus prop on gui terms to set the titlebar/icon title
+termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+
+
+hardstatus alwayslastline "%{cK}%c %{yK}%H %{cK}%l %{wK}%-Lw%50>%{gK}%n%f %t%{wK}%+Lw%<"
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+termcapinfo xterm*|linux*|rxvt*|Eterm* ti@:te@
+
+# Do not use xterms alternate window buffer (won't add lines to scrollback bfr)
+#termcapinfo xterm|xterms|xs ti=\E7\E[?47l
+
+sorendition =s WB 
+msgwait 3
