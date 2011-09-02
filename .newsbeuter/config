@@ -1,0 +1,51 @@
+article-sort-order date-desc
+auto-reload yes
+browser "w3m %u"
+confirm-exit yes
+datetime-format "%d/%m %H:%M"
+feed-sort-order firsttag
+feedlist-format "%T - %n %11u %t %S"
+mark-as-read-on-hover yes
+keep-articles-days 42
+reload-time 30
+reload-threads 4
+show-read-feeds no
+show-read-articles no
+show-keymap-hint no
+refresh-on-startup no
+suppress-first-reload yes
+proxy "[::1]:3128"
+
+unbind-key C
+unbind-key s
+unbind-key ^K
+unbind-key o
+unbind-key O
+unbind-key l
+unbind-key e
+unbind-key E
+unbind-key F
+unbind-key f
+unbind-key ^F
+unbind-key ^B
+unbind-key ^N
+unbind-key ^P
+unbind-key D
+unbind-key $
+unbind-key ^X
+unbind-key v
+unbind-key ^G
+unbind-key ^V
+unbind-key |
+unbind-key g
+unbind-key G
+
+unbind-key j
+unbind-key k
+unbind-key i
+bind-key j next-unread
+bind-key k prev-unread
+bind-key i open
+bind-key o quit
+bind-key v open-in-browser
+bind-key h toggle-show-read-feeds
