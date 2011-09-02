@@ -1,0 +1,12 @@
+xterm*font: -*-fixed-medium-*-*-*-18-*-*-*-*-*-*-*
+XTerm*background: black
+XTerm*foreground: white
+XTerm*saveLines: 1000
+XTerm*scrollBar: false
+
+yeahconsole*term:	urxvt
+yeahconsole*consoleHeight:	20
+yeahconsole*restart: 1
+yeahconsole*toggleKey:	Win+F12
+yeahconsole*aniDelay:	20
+

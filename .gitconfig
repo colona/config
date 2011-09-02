@@ -1,0 +1,21 @@
+[alias]
+	st=status
+	co=checkout
+    com=checkout master
+    cam=commit -a -m
+    cm=commit -m
+    br=branch
+	d=diff
+	a=add
+
+[user]
+	name = colona
+	email = colona@ycc.fr
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color]
+	diff = auto
+	status = auto
+	branch = auto
