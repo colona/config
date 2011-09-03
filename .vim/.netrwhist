@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/data/Downloads/tux/usr/share/pyshared/tuxtremsplit'
-let g:netrw_dirhist_2='/data/Downloads/tux/usr/share/pyshared/tuxtremsplit/common'
-let g:netrw_dirhist_3='/data/Downloads/rapport/internship-report'
