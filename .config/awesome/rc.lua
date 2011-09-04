@@ -213,14 +213,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,			}, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"	}, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey,			}, "z",     function () awful.util.spawn('xscreensaver-command -l') end),
+    awful.key({ modkey, "Control" }, "n", awful.client.restore),
+    awful.key({ modkey,			}, "z",     function () awful.util.spawn('slock') end),
     awful.key({ modkey,		  	}, "p",     function () awful.util.spawn('mocp -f') end),
-    awful.key({ modkey,		  	}, "e",     function () awful.util.spawn('thunar') end),
     awful.key({ modkey,		  	}, "i",     function () awful.util.spawn('xwd -root | convert xwd:- screen.png') end),
-    awful.key({ modkey,		  	}, "-",     function () awful.util.spawn('amixer -c 0 set Master 5%-') end),
-    awful.key({ modkey, "Shift"	}, "-",     function () awful.util.spawn('amixer -c 0 set Master 5%+') end),
-    awful.key({ modkey,		  	}, "=",     function () awful.util.spawn('amixer -c 0 set PCM 5%-') end),
-    awful.key({ modkey, "Shift"	}, "=",     function () awful.util.spawn('amixer -c 0 set PCM 5%+') end),
+    awful.key({ modkey,		  	}, "-",     function () awful.util.spawn('amixer -c 1 set Master 5%-') end),
+    awful.key({ modkey, "Shift"	}, "-",     function () awful.util.spawn('amixer -c 1 set Master 5%+') end),
+    awful.key({ modkey,		  	}, "=",     function () awful.util.spawn('amixer -c 1 set Headphone 5%-') end),
+    awful.key({ modkey, "Shift"	}, "=",     function () awful.util.spawn('amixer -c 1 set Headphone 5%+') end),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -241,7 +241,12 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
+    awful.key({ modkey,           }, "n",
+        function (c)
+            -- The client currently has the input focus, so it cannot be
+            -- minimized, since minimized clients can't have the focus.
+            c.minimized = true
+        end),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal

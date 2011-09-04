@@ -55,6 +55,7 @@ alias ts='~/.pie/tsocks.sh'
 alias 7z='7za a -mx=9'
 alias mkpasswd='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasswde='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
+alias x="startx & exit"
 
 #if [ -f ~/.bash_aliases ]; then
 #    . ~/.bash_aliases
