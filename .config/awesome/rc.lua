@@ -11,7 +11,7 @@ require("vicious")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init(".config/awesome/themes/colona/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/colona/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
