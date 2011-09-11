@@ -28,9 +28,11 @@ set pastetoggle=<F3>
 set fillchars=""
 set timeoutlen=50
 
-highlight WhitespaceEOL ctermbg=red
-match WhitespaceEOL /\s\+$/							" Show trailing whitespaces
-autocmd BufWrite *.c,*.h,*.sh silent! %s/[\r \t]\+$//				" automatically delete trailing whitespace
+" show trailing whitespaces and whitespaces before tabs
+:highlight ExtraWhitespace ctermbg=red guibg=red
+:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/" containedin=ALL
+" automatically delete whitespaces
+autocmd BufWrite *.c,*.h,*.sh silent! %s/[\r \t]\+$//
 
 " Keyboard special actions
 map <F1> :make<CR>								" F1 = compile
