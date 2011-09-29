@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+void shiftview(const Arg *arg);
+
 /* appearance */
 static const char font[]            = "-*-fixed-medium-*-*-*-10-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#000000";
@@ -51,9 +53,9 @@ static const char *termcmd[]  = { "xterm", NULL };
 static const char *musiccmd[]  = { "mocp", "-f", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *volupcmd[]  = { "amixer", "-c", "1", "set", "Master", "5%+", NULL };
-static const char *voldowncmd[]  = { "amixer", "-c 1 set Master 5%-", NULL };
-static const char *vol2upcmd[]  = { "amixer", "-c 1 set Headphone 5%+", NULL };
-static const char *vol2downcmd[]  = { "amixer", "-c 1 set Headphone 5%-", NULL };
+static const char *voldowncmd[]  = { "amixer", "-c", "1", "set", "Master", "5%-", NULL };
+static const char *vol2upcmd[]  = { "amixer", "-c", "1", "set", "Headphone", "5%+", NULL };
+static const char *vol2downcmd[]  = { "amixer", "-c", "1", "set", "Headphone", "5%-", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -80,6 +82,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },*/
+	{ MODKEY,                       XK_Left,      shiftview,   {.i = -1 } },
+	{ MODKEY,                       XK_Right,     shiftview,   {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -92,9 +96,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = musiccmd } },
 	{ MODKEY,                       XK_z,      spawn,          {.v = lockcmd } },
-	{ MODKEY,                       XK_minus,  spawn,          {.v = volupcmd } },
+	{ MODKEY|ShiftMask,             XK_minus,  spawn,          {.v = volupcmd } },
 	{ MODKEY,                       XK_minus,  spawn,          {.v = voldowncmd } },
-	{ MODKEY,                       XK_equal,  spawn,          {.v = vol2upcmd } },
+	{ MODKEY|ShiftMask,             XK_equal,  spawn,          {.v = vol2upcmd } },
 	{ MODKEY,                       XK_equal,  spawn,          {.v = vol2downcmd } },
 };
 
@@ -114,3 +118,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
+/* custom functions */
+#include "shiftview.c"
