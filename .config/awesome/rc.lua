@@ -14,7 +14,7 @@ require("vicious")
 beautiful.init(awful.util.getdir("config") .. "/themes/colona/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
