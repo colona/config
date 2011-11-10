@@ -5,10 +5,10 @@ void shiftview(const Arg *arg);
 /* appearance */
 static const char font[]            = "-*-fixed-medium-*-*-*-10-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#000000";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#aaaaaa";
-static const char selbordercolor[]  = "#536d6c";
-static const char selbgcolor[]      = "#536d6c";
+static const char normbgcolor[]     = "#000000";
+static const char normfgcolor[]     = "#ffffff";
+static const char selbordercolor[]  = "#777777";
+static const char selbgcolor[]      = "#777777";
 static const char selfgcolor[]      = "#ffffff";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -20,7 +20,7 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ NULL,     NULL,       NULL,       0,            False },
+	{ "MPlayer",     NULL,       NULL,       0,            True, -1 },
 /* { "Gimp",     NULL,       NULL,       0,            True,        -1 },*/
 /*	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },*/
 };
