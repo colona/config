@@ -144,7 +144,7 @@ set editor_command "vim '+set tw=72' +%d '%s'"
 
 % Name of directory where decoded files are placed.
 %set decode_directory "News"
-  
+
 % Directory where all other files are saved.
 %set save_directory "News"
 
@@ -187,7 +187,7 @@ set editor_command "vim '+set tw=72' +%d '%s'"
 %charset display utf8
 
 % the character set used for outgoing articles
-charset outgoing "utf8"
+charset outgoing "utf-8"
 
 % If non-zero, call metamail for MIME formats slrn cannot handle.
 %set use_metamail 1
@@ -227,7 +227,7 @@ set sorting_method 11
 
 % If non-zero, hide #v+/#v- verbatim marks.
 %set hide_verbatim_marks 0
-  
+
 % If non-zero, hide signature in articles.
 %set hide_signature 0
 
@@ -264,6 +264,9 @@ set sorting_method 11
 % Enables blinking in monochrome mode and allows bright backgrounds in some
 % color terminals:
 %set use_blink 1
+
+% custom
+header_display_format 0 "%F%B%-5S [%20r]:%t%49s %-17g[%15D]"
 
 % This color object is only used when highlight_unread_subjects is set to 2
 % (see the reference manual for details):
