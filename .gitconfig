@@ -7,11 +7,11 @@
     br=branch
 	d=diff
 	a=add
-	graph=log --pretty=format:'%h %s' --graph
+	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%cn %C(yellow)%cd%Creset %s' --graph --branches --all
 
 [user]
-	name = colona
-	email = colona@ycc.fr
+	name = Delalande Ivan
+	email = delala_i@epita.fr
 [core]
 	editor = vim
 [merge]
