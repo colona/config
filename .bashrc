@@ -42,6 +42,13 @@ xterm*|rxvt*)
     ;;
 esac
 
+# custom function
+7z()
+{
+  if [ -d $1 ]; then 7zr a -mx=9 `basename $1`.7z $1;
+  else 7zr $@; fi
+}
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -51,8 +58,6 @@ alias rm='rm -Iv --one-file-system'
 alias grep='grep -i --color'
 alias qwerty='setxbdmap us intl'
 alias sshot='xwd -root | convert xwd:- ~/screen.png'
-alias ts='~/.pie/tsocks.sh'
-alias 7z='7za a -mx=9'
 alias mkpasswd='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasswde='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 alias x="startx & exit"
