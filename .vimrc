@@ -35,7 +35,7 @@ set hlsearch
 set ignorecase
 set noincsearch
 
-" movements
+" remaps and movements
 set pastetoggle=<F3>
 set nostartofline
 nnoremap <Left> <C-w>h
@@ -44,6 +44,7 @@ nnoremap <Up> <C-w>k
 nnoremap <Right> <C-w>l
 nnoremap <C-Left> :bp<CR>
 nnoremap <C-Right> :bn<CR>
+map <F1> :make<CR>
 
 " indentation
 set expandtab
