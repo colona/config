@@ -56,11 +56,14 @@ esac
 alias emacs='emacs -nw'
 alias rm='rm -Iv --one-file-system'
 alias grep='grep -i --color'
+alias w3m='w3m -T text/html'
+alias cal='cal -m'
 alias qwerty='setxbdmap us intl'
 alias sshot='xwd -root | convert xwd:- ~/screen.png'
 alias mkpasswd='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasswde='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 alias x="startx & exit"
+alias view='vim -R'
 
 #if [ -f ~/.bash_aliases ]; then
 #    . ~/.bash_aliases
