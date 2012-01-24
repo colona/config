@@ -44,7 +44,7 @@ nnoremap <Up> <C-w>k
 nnoremap <Right> <C-w>l
 nnoremap <C-Left> :bp<CR>
 nnoremap <C-Right> :bn<CR>
-map <F1> :make<CR>
+map <F2> :make<CR>
 
 " indentation
 set expandtab
@@ -58,8 +58,8 @@ set autoindent
 set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
-silent !mkdir -p ~/.vimtmp/backup
-silent !mkdir -p ~/.vimtmp/temp
+silent !mkdir -p ~/.vim/backup
+silent !mkdir -p ~/.vim/temp
 
 " folds
 set foldlevelstart=0
