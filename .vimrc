@@ -25,7 +25,7 @@ set laststatus=2
 set hidden
 set scrolloff=3
 set wildmenu
-set wildmode=longest:full
+set wildmode=list:full
 set fillchars=""
 set statusline=[%n]\ %<%f
 set statusline+=\ %((%1*%M%*%R%Y,%{&ff},%{strlen(&fenc)?&fenc:&enc})%)\ %=
