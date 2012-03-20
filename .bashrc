@@ -16,10 +16,16 @@ xterm*|rxvt*)
     ;;
 esac
 
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+	#eval "`dircolors -b`"
+	eval "`dircolors -b $HOME/.LS_COLORS`"
+fi
+
 # custom function
 7z()
 {
-  if [ -d $1 ]; then 7zr a -mx=9 `basename $1`.7z $1;
+  if [ -d "$1" ]; then 7zr a -mx=9 "`basename $1`.7z" "$1";
   else 7zr $@; fi
 }
 disa() { objdump -d -M intel $1 | most; }
