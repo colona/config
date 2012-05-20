@@ -2,12 +2,12 @@ exec setxkbmap us intl &
 #xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape' &
 xset -dpms &
 xset s off &
-xrandr --output LVDS --auto --output VGA-0 --auto --below LVDS
+xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS
 xinput --set-button-map 9 1 2 3 4 5 2 2 &
 
 while true; do
 	topout=$(echo `top -b -n 2 -d 1 | grep -E 'Cpu\(s\):' | tail -1`)
-	cpuuse=$(($(echo $topout | cut -f 2 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.') + $(echo $topout | cut -f 3 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.')))
+	cpuuse=$(($(echo $topout | cut -f 2 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.') + $(echo $topout | cut -f 4 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.')))
 
 	date="$(date +'%a %b %d %H:%M')"
 	batt="$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)"
