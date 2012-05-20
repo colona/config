@@ -25,7 +25,7 @@ set laststatus=2
 set hidden
 set scrolloff=3
 set wildmenu
-set wildmode=full
+set wildmode=longest:full
 set fillchars=""
 set statusline=[%n]\ %<%f
 set statusline+=\ %((%1*%M%*%R%Y,%{&ff},%{strlen(&fenc)?&fenc:&enc})%)\ %=
@@ -49,6 +49,8 @@ nnoremap <C-Right> <C-w>l
 nnoremap <S-Left> :bp<CR>
 nnoremap <S-Right> :bn<CR>
 map <F2> :make<CR>
+nnoremap <F4> :cn<CR>
+nnoremap <F5> :cp<CR>
 inoremap <F1> <esc>
 vnoremap <F1> <esc>
 nnoremap <F1> <esc>

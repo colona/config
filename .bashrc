@@ -30,6 +30,7 @@ fi
 }
 disa() { objdump -d -M intel $1 | most; }
 hexd() { hexdump -C $1 | most; }
+mkcd() { mkdir $1; cd $1; }
 
 # Alias definitions.
 alias emacs='emacs -nw'
@@ -45,6 +46,8 @@ alias x="startx & exit"
 alias view='vim -R'
 alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
+alias wakeliza='wol 00:11:85:73:96:10'
+alias clock='xclock -d -strftime "%T" -update 1 &'
 
 # exports
 export HISTCONTROL=ignoredups
