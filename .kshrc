@@ -1,8 +1,5 @@
 #! /bin/ksh
 
-bind '^[[3'=prefix-2
-bind '^[[3~'=delete-char-forward
-
 # custom functions
 7z()
 {
@@ -30,9 +27,23 @@ alias ls='ls --color=auto'
 alias wakeliza='wol 00:11:85:73:96:10'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 
-# environment
 # prompt: juste \u@\h:\w$, with the $ changing color according to last $?
-export PS1='\u@\h:\w`if [[ $? -eq 0 ]]; then echo -ne "\033[0;32m"; else echo -ne "\033[0;31m"; fi`$\e[0m '
+export HOSTNAME=`hostname`
+prettypwd()
+{
+	TRIMPWD=${PWD#${HOME}}
+	if [ ${#PWD} -gt ${#TRIMPWD} ]; then
+		echo -n "~$TRIMPWD"
+	else
+		echo -n "$PWD"
+	fi
+}
+PS1='${USER}@${HOSTNAME}:`prettypwd`'
+PS1=$PS1'`if [[ $? -eq 0 ]]; then echo -ne "\033[0;32m"; else echo -ne "\033[0;31m"; fi`'
+PS1=$PS1'`echo -ne "$\033[0m"` '
+export PS1
+
+# environment
 export HISTFILE=${HOME}/.ksh_history
 export HISTSIZE=4096
 export EDITOR=vim
@@ -40,4 +51,5 @@ export PAGER=most
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
 
+# input mode
 set -o emacs
