@@ -48,6 +48,7 @@ alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
 alias wakeliza='wol 00:11:85:73:96:10'
 alias clock='xclock -d -strftime "%T" -update 1 &'
+alias tm='exec tmux a -d'
 
 # exports
 export HISTCONTROL=ignoredups
