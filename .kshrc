@@ -1,8 +1,5 @@
 #! /bin/ksh
 
-set -o emacs
-
-#bind -m '^L'=clear^J
 bind '^[[3'=prefix-2
 bind '^[[3~'=delete-char-forward
 
@@ -34,12 +31,13 @@ alias wakeliza='wol 00:11:85:73:96:10'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 
 # environment
-#export HOSTNAME="`hostname`"
-#PS1='${LOGNAME}@${HOSTNAME}:${PWD}\$ '
-export PS1='\u@\h:\w$ '
+# prompt: juste \u@\h:\w$, with the $ changing color according to last $?
+export PS1='\u@\h:\w`if [[ $? -eq 0 ]]; then echo -ne "\033[0;32m"; else echo -ne "\033[0;31m"; fi`$\e[0m '
 export HISTFILE=${HOME}/.ksh_history
 export HISTSIZE=4096
 export EDITOR=vim
 export PAGER=most
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
+
+set -o emacs
