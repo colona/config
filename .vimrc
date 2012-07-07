@@ -49,8 +49,8 @@ nnoremap <C-Right> <C-w>l
 nnoremap <S-Left> :bp<CR>
 nnoremap <S-Right> :bn<CR>
 map <F2> :make<CR>
-nnoremap <F4> :cn<CR>
-nnoremap <F5> :cp<CR>
+nnoremap <F4> :cp<CR>
+nnoremap <F5> :cn<CR>
 inoremap <F1> <esc>
 vnoremap <F1> <esc>
 nnoremap <F1> <esc>
