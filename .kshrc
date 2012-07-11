@@ -10,6 +10,11 @@ disa() { objdump -d -M intel $1 | most; }
 hexd() { hexdump -C $1 | most; }
 mkcd() { mkdir $1; cd $1; }
 
+# enable advanced colors for ls
+if [ "$TERM" != "dumb" ]; then
+        eval "`dircolors -b`"
+fi
+
 # aliases
 alias emacs='emacs -nw'
 alias rm='rm -Iv --one-file-system'

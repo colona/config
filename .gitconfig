@@ -10,6 +10,7 @@
 	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%cn %C(yellow)%cd%Creset %s' --graph --branches --all
     wdiff=diff --word-diff
     st=status -sb -uno
+    poule=pull
 
 [user]
 	name = Delalande Ivan
