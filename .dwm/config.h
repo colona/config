@@ -49,10 +49,8 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, 
 static const char *termcmd[]  = { "xterm", NULL };
 static const char *musiccmd[]  = { "mocp", "-f", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
-static const char *volupcmd[]  = { "amixer", "-c", "1", "set", "Master", "5%+", NULL };
-static const char *voldowncmd[]  = { "amixer", "-c", "1", "set", "Master", "5%-", NULL };
-static const char *vol2upcmd[]  = { "amixer", "-c", "1", "set", "Headphone", "5%+", NULL };
-static const char *vol2downcmd[]  = { "amixer", "-c", "1", "set", "Headphone", "5%-", NULL };
+static const char *volupcmd[]  = { "amixer", "set", "Master", "5%+", NULL };
+static const char *voldowncmd[]  = { "amixer", "set", "Master", "5%-", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -89,10 +87,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY,                       XK_p,      spawn,          {.v = musiccmd } },
 	{ MODKEY,                       XK_z,      spawn,          {.v = lockcmd } },
-	{ MODKEY|ShiftMask,             XK_minus,  spawn,          {.v = volupcmd } },
-	{ MODKEY,                       XK_minus,  spawn,          {.v = voldowncmd } },
-	{ MODKEY|ShiftMask,             XK_equal,  spawn,          {.v = vol2upcmd } },
-	{ MODKEY,                       XK_equal,  spawn,          {.v = vol2downcmd } },
+	{ MODKEY|ShiftMask,             XK_equal,  spawn,          {.v = volupcmd } },
+	{ MODKEY,                       XK_equal,  spawn,          {.v = voldowncmd } },
 };
 
 /* button definitions */

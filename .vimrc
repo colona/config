@@ -3,6 +3,7 @@ set nocompatible
 set noswapfile
 set showmode
 set showcmd
+set hidden
 set encoding=utf-8
 set fileencoding=utf-8
 set vi=""
@@ -22,7 +23,6 @@ set textwidth=79
 set wrap
 set linebreak
 set laststatus=2
-set hidden
 set scrolloff=3
 set wildmenu
 set wildmode=longest:full

@@ -45,8 +45,11 @@ prettypwd()
 	fi
 }
 PS1='${USER}@${HOSTNAME}:`prettypwd`'
-PS1=$PS1'`if [[ $? -eq 0 ]]; then echo -ne "\033[0;32m"; else echo -ne "\033[0;31m"; fi`'
-PS1=$PS1'`echo -ne "$\033[0m"` '
+case "$TERM" in # just set the title of terminal emulator
+	*xterm* | *rxvt* ) PS1="`echo -ne '\e]0;'`"$PS1"`echo -ne '\a'`"$PS1;;
+esac
+PS1=$PS1'`if [[ $? -eq 0 ]]; then echo -ne "\e[0;32m"; else echo -ne "\e[0;31m"; fi`'
+PS1=$PS1"`echo -ne '$\e[0m'` "
 export PS1
 
 # environment
