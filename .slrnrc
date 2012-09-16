@@ -37,6 +37,7 @@ set signature ".slrnsig"
 server "news.orange.fr" ".jnewsrc-orange"
 server "news.free.fr" ".jnewsrc-free"
 server "news.epita.fr" ".jnewsrc-epita"
+server "news-old.epita.fr" ".jnewsrc-epita-old"
 
 % If a server requires authentication, add a nnrpaccess line for it.
 % If you leave username and/or password empty, slrn will prompt for it.
