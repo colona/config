@@ -18,8 +18,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-	#eval "`dircolors -b`"
-	eval "`dircolors -b $HOME/.LS_COLORS`"
+	eval "`dircolors -b`"
 fi
 
 # custom function
