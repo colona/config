@@ -1,9 +1,9 @@
-exec setxkbmap us intl &
-#xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape' &
+exec setxkbmap us &
 xset -dpms &
 xset s off &
 xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS
 xinput --set-button-map 9 1 2 3 4 5 2 2 &
+xmodmap -e 'clear Lock' -e 'keycode 0x42 = Multi_key' &
 
 while true; do
 	topout=$(echo `top -b -n 2 -d 1 | grep -E 'Cpu\(s\):' | tail -1`)
