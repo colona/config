@@ -3,12 +3,26 @@
 # custom functions
 7z()
 {
-  if [ -d "$1" ]; then 7zr a -mx=9 "`basename $1`.7z" "$1";
-  else 7zr $@; fi
+	if [ -d "$1" ]; then 7zr a -mx=9 "`basename $1`.7z" "$1";
+	else 7zr $@; fi
 }
 disa() { objdump -d -M intel $1 | most; }
 hexd() { hexdump -C $1 | most; }
 mkcd() { mkdir $1; cd $1; }
+addspammed() { echo "$1" >> ~/Maildir/spammed; }
+addspammer() { echo "$1" >> ~/Maildir/spammer; }
+man()
+{ # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
 
 # enable advanced colors for ls
 if [ "$TERM" != "dumb" ]; then
@@ -53,10 +67,11 @@ PS1=$PS1"`echo -ne '$\e[0m'` "
 export PS1
 
 # environment
+eval "`lesspipe`" # populate $LESSOPEN and $LESSCLOSE
 export HISTFILE=${HOME}/.ksh_history
 export HISTSIZE=4096
 export EDITOR=vim
-export PAGER=most
+export PAGER=less
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
 

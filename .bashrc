@@ -31,6 +31,20 @@ fi
 disa() { objdump -d -M intel $1 | most; }
 hexd() { hexdump -C $1 | most; }
 mkcd() { mkdir $1; cd $1; }
+addspammed() { echo "$1" >> ~/Maildir/spammed; }
+addspammer() { echo "$1" >> ~/Maildir/spammer; }
+man()
+{ # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
 
 # Alias definitions.
 alias emacs='emacs -nw'
@@ -53,7 +67,7 @@ alias tm='exec tmux a -d'
 # exports
 export HISTCONTROL=ignoredups
 export EDITOR=vim
-export PAGER=most
+export PAGER=less
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
 #export CFLAGS="-O2 -ansi -pedantic -W -Wall -Werror -Wextra"

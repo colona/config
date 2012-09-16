@@ -29,6 +29,7 @@ set charset="utf8"
 set delete=yes
 set help=no
 set mark_old=no
+set quit=ask-yes
 
 bind index j next-unread
 bind index k previous-unread
