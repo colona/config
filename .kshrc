@@ -9,8 +9,10 @@
 disa() { objdump -d -M intel $1 | most; }
 hexd() { hexdump -C $1 | most; }
 mkcd() { mkdir $1; cd $1; }
-addspammed() { echo "$1" >> ~/Maildir/spammed; }
-addspammer() { echo "$1" >> ~/Maildir/spammer; }
+addspamed() { echo "$1" >> ~/Maildir/spammed; }
+addspamer() { echo "$1" >> ~/Maildir/spammer; }
+addspamcontent() { echo "$1" >> ~/Maildir/spam_content; }
+
 man()
 { # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
 	env \
@@ -46,6 +48,7 @@ alias ls='ls --color=auto'
 alias wakeliza='wol 00:11:85:73:96:10'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
+alias gdb='gdb -q'
 
 # prompt: juste \u@\h:\w$, with the $ changing color according to last $?
 export HOSTNAME=`hostname`

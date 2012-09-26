@@ -32,6 +32,7 @@ hexd() { hexdump -C $1 | most; }
 mkcd() { mkdir $1; cd $1; }
 addspammed() { echo "$1" >> ~/Maildir/spammed; }
 addspammer() { echo "$1" >> ~/Maildir/spammer; }
+addspamcontent() { echo "$1" >> ~/Maildir/spam_content; }
 man()
 { # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
 	env \
@@ -62,6 +63,7 @@ alias ls='ls --color=auto'
 alias wakeliza='wol 00:11:85:73:96:10'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
+alias gdb='gdb -q'
 
 # exports
 export HISTCONTROL=ignoredups
@@ -69,5 +71,6 @@ export EDITOR=vim
 export PAGER=less
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
-#export CFLAGS="-O2 -ansi -pedantic -W -Wall -Werror -Wextra"
-#set -o vi
+
+# input mode
+set -o emacs
