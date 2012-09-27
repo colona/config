@@ -33,6 +33,7 @@ mkcd() { mkdir $1; cd $1; }
 addspammed() { echo "$1" >> ~/Maildir/spammed; }
 addspammer() { echo "$1" >> ~/Maildir/spammer; }
 addspamcontent() { echo "$1" >> ~/Maildir/spam_content; }
+noaslr() { setarch `uname -m` -R "$@"; }
 man()
 { # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
 	env \
