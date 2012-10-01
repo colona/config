@@ -1,13 +1,23 @@
 source ~/.mutt/gpg.rc
-
-set realname='Colona'
-set from="colona@ycc.fr"
-set use_from = "yes"
-set envelope_from = "yes"
+set mailcap_path = ~/.mutt/mailcap
 set signature="~/.sig"
-set mbox_type=Maildir
 set spoolfile="~/Maildir/"
+set mbox_type=Maildir
 set folder="~/Maildir"
+auto_view text/html
+alternative_order text/plain text text/enriched text/html
+
+set realname="Colona"
+set from="colona@ycc.fr"
+set use_from="yes"
+set envelope_from="yes"
+set config_charset=utf8
+set editor="vim '+set tw=72'"
+set forward_format="Fwd: %s"
+set forward_quote
+unset mime_forward
+set include
+
 set mask="!^\\.[^.]"
 set record="+.Sent"
 set postponed="+.INBOX.Drafts"
@@ -20,15 +30,15 @@ for file in ~/Maildir/.*; do \
   fi; \
 done`
 
-set config_charset=utf8
-set editor = "vim '+set tw=72'"
 set sort=threads
 set sort_aux=last-date-received
-set beep=no
+set tilde
+unset markers
+unset beep
 set charset="utf8"
-set delete=yes
-set help=no
-set mark_old=no
+set delete
+unset help
+unset mark_old
 set quit=ask-yes
 
 bind index j next-unread
