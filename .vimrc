@@ -19,6 +19,7 @@ set secure
 
 " visual
 set background=dark
+set synmaxcol=800
 set textwidth=79
 set wrap
 set linebreak
@@ -42,6 +43,10 @@ set noincsearch
 " remaps and movements
 set pastetoggle=<F3>
 set nostartofline
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
 nnoremap <C-Left> <C-w>h
 nnoremap <C-Down> <C-w>j
 nnoremap <C-Up> <C-w>k

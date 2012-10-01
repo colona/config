@@ -10,11 +10,12 @@
 	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%cn %C(yellow)%cd%Creset %s' --graph --branches --all
     wdiff=diff --word-diff
     st=status -sb -uno
+	unstage=reset HEAD
     poule=pull
 
 [user]
 	name = Ivan \"Colona\" Delalande
-	email = colona@ycc.fr
+	email = colona@lse.epita.fr
 [core]
 	editor = vim
 [merge]
@@ -23,3 +24,4 @@
 	diff = auto
 	status = auto
 	branch = auto
+	interactive = auto
