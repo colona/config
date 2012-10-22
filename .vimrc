@@ -33,7 +33,7 @@ set statusline+=\ %((%1*%M%*%R%Y,%{&ff},%{strlen(&fenc)?&fenc:&enc})%)\ %=
 set statusline+=%-19(\Line\ [%4l/%4L]\ \Col\ [%02c%03V]%)\ ascii['%03b']\ %P
 colorscheme desert
 syntax on
-au VimResized * exe "normal! \<c-w>="
+autocmd VimResized * exe "normal! \<c-w>="
 
 " search
 set hlsearch
@@ -53,12 +53,11 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Right> <C-w>l
 nnoremap <S-Left> :bp<CR>
 nnoremap <S-Right> :bn<CR>
-map <F2> :make<CR>
+noremap <F2> :make<CR>
 nnoremap <F4> :cp<CR>
 nnoremap <F5> :cn<CR>
+noremap <F1> <esc>
 inoremap <F1> <esc>
-vnoremap <F1> <esc>
-nnoremap <F1> <esc>
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
@@ -100,8 +99,15 @@ set foldtext=MyFoldText()
 " show trailings and 80+ char lines
 ":highlight ExtraWhitespace ctermbg=red guibg=red
 ":match ExtraWhitespace /\s\+$\| \+\ze\t/
-:au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
-:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+":au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
+":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+function WrongSpacingsHL()
+    call matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
+    call matchadd('ErrorMsg', '\%>79v.\+', -1)
+endfunction
+nnoremap <F7> :call WrongSpacingsHL()<CR>
+nnoremap <F8> :call clearmatches()<CR>
+:autocmd BufWinEnter * call WrongSpacingsHL()
 
 " from delroth configuration for automatic Epita guards
 function Epita_c_insert_guards()

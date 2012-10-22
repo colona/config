@@ -34,3 +34,4 @@ keymap	u	UNDO
 keymap	v	VIEW
 keymap	f	WHEREIS
 keymap	-	MAIN_MENU
+keymap	X	DISPLAY_IMAGE
