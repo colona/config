@@ -4,6 +4,7 @@ set signature="~/.sig"
 set spoolfile="~/Maildir/"
 set mbox_type=Maildir
 set folder="~/Maildir"
+set header_cache="~/.mutt/headercache"
 auto_view text/html
 alternative_order text/plain text text/enriched text/html
 
