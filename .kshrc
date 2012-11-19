@@ -34,7 +34,7 @@ fi
 # aliases
 alias emacs='emacs -nw'
 alias rm='rm -Iv --one-file-system'
-alias grep='grep -i --color'
+alias grep='grep --color --binary-files=text'
 alias w3m='w3m -T text/html'
 alias cal='cal -m'
 alias qwerty='setxbdmap us intl'
