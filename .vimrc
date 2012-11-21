@@ -71,7 +71,7 @@ endif
 set noexpandtab
 set tabstop=4
 set softtabstop=4
-set shiftwidth=0 " = tabstop
+set shiftwidth=4
 autocmd filetype make set noexpandtab
 set autoindent
 
