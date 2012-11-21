@@ -61,17 +61,17 @@ inoremap <F1> <esc>
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
+	execute "set <xUp>=\e[1;*A"
+	execute "set <xDown>=\e[1;*B"
+	execute "set <xRight>=\e[1;*C"
+	execute "set <xLeft>=\e[1;*D"
 endif
 
 " indentation
 set noexpandtab
 set tabstop=4
 set softtabstop=4
-set shiftwidth=4
+set shiftwidth=0 " = tabstop
 autocmd filetype make set noexpandtab
 set autoindent
 
@@ -108,34 +108,3 @@ endfunction
 nnoremap <F7> :call WrongSpacingsHL()<CR>
 nnoremap <F8> :call clearmatches()<CR>
 :autocmd BufWinEnter * call WrongSpacingsHL()
-
-" from delroth configuration for automatic Epita guards
-function Epita_c_insert_guards()
-	let basename=substitute(@%, "[^/]*/", "", "g")
-	let underscored=tr(basename, ".", "_")
-	let const=substitute(underscored, ".*", "\\U\\0", "")."_"
-	exe "normal i#ifndef ".const."\n\e"
-	exe "normal i# define ".const."\n\n\n\n\e"
-	exe "normal i#endif /"."* !".const." */\e"
-	exe "normal 4G"
-endfunction
-
-if $EPITA == 1
-	au Bufnewfile,Bufread *.h set ft=c
-	au Bufnewfile *.h call Epita_c_insert_guards()
-endif
-
-function Epita_cpp_insert_guards()
-	let basename=substitute(@%, "[^/]*/", "", "g")
-	let underscored=substitute(basename, "[^a-zA-Z_]", "_", "g")
-	let const=substitute(underscored, ".*", "\\U\\0", "")."_"
-	exe "normal i#ifndef ".const."\n\e"
-	exe "normal i# define ".const."\n\n\n\n\e"
-	exe "normal i#endif // !".const."\e"
-	exe "normal 4G"
-endfunction
-
-if $EPITA == 1
-	au Bufnewfile,Bufread *.hh set ft=cpp
-	au Bufnewfile *.hh call Epita_cpp_insert_guards()
-endif
