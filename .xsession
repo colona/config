@@ -1,9 +1,8 @@
-exec setxkbmap us &
-xset -dpms &
-xset s off &
 xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS
-xinput --set-button-map 9 1 2 3 4 5 2 2 &
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Multi_key' &
+setxkbmap us -option compose:caps
+xset -dpms
+xset s off
+xset b off
 
 while true; do
 	topout=$(echo `top -b -n 2 -d 1 | grep -E 'Cpu\(s\):' | tail -1`)
@@ -20,9 +19,9 @@ while true; do
 	percmem=$(($realmem * 100 / $totmem))
 
 	music=""
-	#if [ "`mocp -Q '%state' 2>> /dev/null`" == PLAY ] || [ "`mocp -Q '%state' 2>>/dev/null`" == PAUSE ]; then
-		#music="$(mocp -Q '%title')   "
-	#fi
+#	if [ "`mocp -Q '%state' 2>> /dev/null`" == PLAY ] || [ "`mocp -Q '%state' 2>>/dev/null`" == PAUSE ]; then
+#		music="$(mocp -Q '%title')   "
+#	fi
 
 	xsetroot -name "${music}${temp}° [$batt] ${cpuuse}% ($cpuload) ${realmem}M ${percmem}%   $date"
 	sleep 5
