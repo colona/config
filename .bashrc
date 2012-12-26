@@ -40,6 +40,7 @@ alias gdb='gdb -q'
 alias sshot='xwd -root | convert xwd:- ~/screen.png'
 alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
+alias pws='~/.password-store.sh'
 alias x="startx & exit"
 alias view='vim -R'
 alias clock='xclock -d -strftime "%T" -update 1 &'
