@@ -41,6 +41,8 @@ set delete
 unset help
 unset mark_old
 set quit=ask-yes
+unset markers
+set pager_stop
 
 bind index j next-unread
 bind index k previous-unread
