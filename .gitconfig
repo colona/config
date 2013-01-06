@@ -11,7 +11,9 @@
     wdiff=diff --word-diff
     st=status -sb -uno
 	unstage=reset HEAD
+	uncommit=reset --soft HEAD^
     poule=pull
+	choucroute=checkout
 
 [user]
 	name = Ivan \"Colona\" Delalande
