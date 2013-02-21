@@ -6,8 +6,8 @@
 	if [ -d "$1" ]; then 7zr a -mx=9 "`basename $1`.7z" "$1" && rm -rf "$1";
 	else 7zr "$@"; fi
 }
-disa() { objdump -d -M intel "$1" | most; }
-hexd() { hexdump -C "$1" | most; }
+disa() { objdump -d -M intel "$1" | less; }
+hexd() { hexdump -C "$1" | less; }
 mkcd() { mkdir "$1"; cd "$1"; }
 addspamed() { echo "$1" >> ~/Maildir/spammed; }
 addspamer() { echo "$1" >> ~/Maildir/spammer; }
