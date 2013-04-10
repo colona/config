@@ -47,7 +47,7 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "xterm", NULL };
-static const char *musiccmd[]  = { "mocp", "-f", NULL };
+static const char *musiccmd[]  = { "amixer", "set", "Master", "toggle", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *volupcmd[]  = { "amixer", "set", "Master", "5%+", NULL };
 static const char *voldowncmd[]  = { "amixer", "set", "Master", "5%-", NULL };

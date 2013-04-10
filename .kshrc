@@ -45,6 +45,7 @@ alias pws='~/.password-store.sh'
 alias view='vim -R'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
+alias radio='mplayer --prefer-ipv4 --cache=1024 http://radio.ycc.fr:8000/colona'
 
 # prompt: just \u@\h:\w$, with the $ changing color according to last $?
 export HOSTNAME=`hostname`
