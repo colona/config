@@ -36,7 +36,7 @@ alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
 alias gdb='gdb -q'
 
-alias x="startx & exit"
+alias x='startx & exit'
 alias sshot='import -window root ~/screen.png'
 alias sshotold='xwd -root | convert xwd:- ~/screen.png'
 alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
@@ -46,6 +46,7 @@ alias view='vim -R'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
 alias radio='mplayer --prefer-ipv4 --cache=1024 http://radio.ycc.fr:8000/colona'
+alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes'
 
 # prompt: just \u@\h:\w$, with the $ changing color according to last $?
 export HOSTNAME=`hostname`
@@ -78,5 +79,6 @@ export PAGER=less
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
 
-# input mode
+# input
 set -o emacs
+bind '^L=clear-screen'
