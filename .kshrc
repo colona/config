@@ -35,6 +35,7 @@ alias cal='cal -m'
 alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
 alias gdb='gdb -q'
+alias hexer='hexer -c "set bg=16"'
 
 alias x='startx & exit'
 alias sshot='import -window root ~/screen.png'
