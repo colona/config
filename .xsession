@@ -1,8 +1,18 @@
 xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS
-setxkbmap us -option compose:caps
 xset -dpms
 xset s off
 xset b off
+setxkbmap us -option compose:caps
+
+mouse="$(xinput | sed -rn '/Optical Mouse/s/.*id=([0-9]+).*/\1/gp')"
+if [ -n "$mouse" ]; then
+	xinput --set-button-map "$mouse" 1 2 3 4 5 2 2
+fi
+if xinput | grep -q TrulyErgonomic.com; then
+	xmodmap -e 'keycode 0x73 = Multi_key'
+	xmodmap -e 'keycode 0x70 = Super_L'
+	xmodmap -e 'keycode 0x75 = Super_L'
+fi
 
 while true; do
 	topout=$(echo `top -b -n 2 -d 1 | grep -E 'Cpu\(s\):' | tail -1`)
@@ -18,12 +28,7 @@ while true; do
 	realmem=$(( $(echo $mem | cut -f 3 -d ' ') - $(echo $mem | cut -f 6 -d ' ') - $(echo $mem | cut -f 7 -d ' ') ))
 	percmem=$(($realmem * 100 / $totmem))
 
-	music=""
-#	if [ "`mocp -Q '%state' 2>> /dev/null`" == PLAY ] || [ "`mocp -Q '%state' 2>>/dev/null`" == PAUSE ]; then
-#		music="$(mocp -Q '%title')   "
-#	fi
-
-	xsetroot -name "${music}${temp}° [$batt] ${cpuuse}% ($cpuload) ${realmem}M ${percmem}%   $date"
+	xsetroot -name "${temp}° [$batt] ${cpuuse}% ($cpuload) ${realmem}M ${percmem}%   $date"
 	sleep 5
 done &
 
