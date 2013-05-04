@@ -1,0 +1,12 @@
+cd ~/music
+set output_plugin=alsa
+set play_library=false
+set show_hidden=true
+set shuffle=true
+
+set format_playlist=%f%=%{codec} [%d]
+set format_playlist_va=%f%=%{codec} [%d]
+set altformat_playlist=%f%=%{codec} [%d]
+set format_current=%a - %l - %t (%y) %= %{bitrate}kbps - %{codec} [%d]
+set altformat_current=%f%=%{bitrate}kbps - %{codec} [%d]
+set status_display_program=/home/colona/update_icecast.sh
