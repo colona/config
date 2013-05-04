@@ -48,6 +48,7 @@ alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
 alias radio='mplayer --prefer-ipv4 --cache=1024 http://radio.ycc.fr:8000/colona'
 alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes'
+alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 
 # prompt: just "\u@\h:\w$ ", with the $ changing color according to last $?
 # All this \1\r and $'\1' shit is to advise ksh to not count the chars for the
