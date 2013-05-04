@@ -1,8 +1,8 @@
 HOSTNAME="$(hostname)"
 
 case "$HOSTNAME" in
-	klesk) echo xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS;;
-	phobos) echo xrandr --output VGA-0 --auto --output DVI-0 --auto --right-of VGA-0;;
+	klesk) xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS;;
+	phobos) xrandr --output VGA1 --auto --output HDMI1 --auto --right-of VGA1;;
 esac
 
 xset -dpms
