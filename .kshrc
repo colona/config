@@ -22,6 +22,13 @@ function man {
 		LESS_TERMCAP_us=$'\e[1;32m' \
 			man "$@"
 }
+function img {
+	# by http://www.reddit.com/user/xkero
+	for image in "$@"; do
+		convert -thumbnail $(tput cols) "$image" txt:-\
+			| awk -F '[)(,]' '!/^#/{gsub(/ /,"");printf"\033[48;2;"$3";"$4";"$5"m "}';echo -e "\e[0;0m"
+	done
+}
 
 # aliases
 	# configuration
@@ -47,7 +54,7 @@ alias hexd='hexer -R'
 alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
 alias radio='mplayer --prefer-ipv4 --cache=1024 http://radio.ycc.fr:8000/colona'
-alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes'
+alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes --malloc-fill=0x42 --free-fill=0x43'
 alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 
 # prompt: just "\u@\h:\w$ ", with the $ changing color according to last $?
