@@ -542,15 +542,7 @@ define assemble
 		# check if we have a valid address by dereferencing it,
 		# if we havnt, this will cause the routine to exit.
 		end
-		printf "Instructions will be written to %#x.\n", $arg0
-	else
-		printf "Instructions will be written to stdout.\n"
-	end
-	printf "Type instructions, one per line."
-	printf " Do not forget to use NASM assembler syntax!\n"
-	printf "End with a line saying just \"end\".\n"
 
-	if ($argc)
 		# argument, assemble instructions into memory at the given address
 		if (sizeof(void *) == 8)
 			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
@@ -574,11 +566,11 @@ define assemble
 			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
 				echo -e "BITS 64\n$ASMOPCODE" >/tmp/.assembly; \
 				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
-					| /usr/bin/ndisasm -i -b64 /dev/stdin;
+					| /usr/bin/ndisasm -i -b64 /dev/stdin
 		else
 			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
 				echo -e "BITS 32\n$ASMOPCODE" >/tmp/.assembly; \
-				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly
+				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
 					| /usr/bin/ndisasm -i -b32 /dev/stdin;
 		end
 		shell /bin/rm -f /tmp/.assembly
@@ -590,4 +582,16 @@ Type a line containing "end" to indicate the end.
 If an address is specified, insert/modify instructions at that address.
 If no address is specified, assembled instructions are printed to stdout.
 Use the pseudo instruction "org ADDR" to set the base address.
+end
+
+define assemble_gas
+	dont-repeat
+	shell cat > /tmp/.assembly; echo ""; \
+		as -o /tmp/.gdbassemble < /tmp/.assembly; \
+		objdump -d -j .text /tmp/.gdbassemble; \
+		rm -f /tmp/.assembly /tmp/.gdbassemble
+end
+document assemble_gas
+Assemble instructions to binary opcodes. Uses GNU as and objdump.
+Usage: assemble_gas
 end
