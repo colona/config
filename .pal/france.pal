@@ -1,0 +1,38 @@
+# Adapted by colone from :
+# http://www.freebsd.org/cgi/cvsweb.cgi/src/usr.bin/calendar/calendars/fr_FR.ISO8859-1/calendar.jferies
+
+FR France
+
+# Jours chômés
+00000101	Nouvel an
+00000501	Fête du travail
+00000508	Armistice 1945
+00000714	Fête nationale française
+00001111	Armistice 1918
+
+# Jours fériés religieux
+Easter		Pâques
+Easter+001	Lundi de Pâques
+Easter+039	Ascension
+Easter+049	Pentecôte
+Easter+050	Lundi de Pentecôte
+00000815	Assomption
+00001101	Toussaint
+00001225	Noël
+
+# Les dates suivantes ne sont malheureusement pas fériées...
+
+# Saisons
+00000321	Printemps
+00000621	Été
+00000921	Automne
+00001221	Hiver
+
+# Changements d'heure
+*03L1		Passage à l'heure d'été
+*10L1		Passage à l'heure d'hiver
+
+# Divers
+# BUG : si Penteco^te = 05/SunLast, fe^te des me`res repousse'e d'une semaine
+*05L1		Fêtes des mères
+*0631		Fêtes des pères
