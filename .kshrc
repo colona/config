@@ -1,6 +1,5 @@
 #! /bin/ksh
 
-
 # custom functions
 function 7z {
 	if [ -d "$1" ]; then
@@ -9,7 +8,7 @@ function 7z {
 		7zr "$@"
 	fi
 }
-function mkcd { mkdir "$1" && cd "$1"; }
+function mkcd { mkdir -p "$1" && cd "$1"; }
 function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
@@ -29,11 +28,24 @@ function img {
 	# by http://www.reddit.com/user/xkero
 	for image in "$@"; do
 		convert -thumbnail $(tput cols) "$image" txt:-\
-			| awk -F '[)(,]' '!/^#/{gsub(/ /,"");printf"\033[48;2;"$3";"$4";"$5"m "}';echo -e "\e[0;0m"
+			| awk -F '[)(,]' '!/^#/{gsub(/ /,"");printf"\033[48;2;"$3";"$4";"$5"m "}'
+		echo -e "\e[0;0m"
 	done
 }
-function hex2bin { if [ $# -eq 0 ]; then xxd -p -r; else echo "$*" | xxd -p -r; fi; }
 function bin2hex { if [ $# -eq 0 ]; then xxd -p; else echo -n "$*" | xxd -p; fi | tr -d '\n'; echo ""; }
+function hex2bin {
+	if [ $# -eq 0 ]; then
+		xxd -p -r
+	else
+		for s in $*; do
+			if [ $(( ${#s} % 2 )) -eq 1 ]; then
+				echo "Size of hex $s is not even." 1>&2
+				return 1
+			fi
+		done
+		echo "$*" | xxd -p -r
+	fi
+}
 
 # specially to assemble and disassemble
 function disa { objdump -d -M intel "$1" | less; }
@@ -42,7 +54,8 @@ function disahex32 { hex2bin "$1" | ndisasm -b 32 -; }
 function disahex64 { hex2bin "$1" | ndisasm -b 64 -; }
 function __disahex_gas {
 	file=`mktemp` || return 1
-	hex2bin "$1" > $file; objdump -D -b binary -m "$2" --prefix-addresses --show-raw-insn $file | sed -n '6~1p'
+	hex2bin "$1" > $file
+	objdump -D -b binary -m "$2" --prefix-addresses --show-raw-insn $file | sed -n '6~1p'
 	rm -f $file
 }
 function disahex16_gas {  __disahex_gas "$1" "i8086"; }
@@ -64,8 +77,7 @@ function __ashex_gas {
 	arch="--$1"
 	as $arch -o $inter $file || return 1
 	objcopy -O binary $inter $output || return 1
-	xxd -p $output | tr -d '\n'
-	echo ""
+	bin2hex < $output
 	rm -f $file $inter $output
 }
 alias ashex32_gas='__ashex_gas 32'
