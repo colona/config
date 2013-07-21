@@ -47,6 +47,7 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "xterm", NULL };
+static const char *cdtermcmd[]  = { "sh", "-c", "cd \"$(xcwd)\" && exec xterm", NULL };
 static const char *musiccmd[]  = { "amixer", "set", "Master", "toggle", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *volupcmd[]  = { "amixer", "set", "Master", "5%+", NULL };
@@ -56,6 +57,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = cdtermcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -73,8 +75,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_o,      focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_Left,      shiftview,   {.i = -1 } },
-	{ MODKEY,                       XK_Right,     shiftview,   {.i = +1 } },
+	{ MODKEY,                       XK_Left,   shiftview,      {.i = -1 } },
+	{ MODKEY,                       XK_Right,  shiftview,      {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
