@@ -152,6 +152,7 @@ export EDITOR=vim
 export PAGER=less
 export NNTPSERVER='news.epita.fr'
 export CC=gcc
+export GTK_IM_MODULE=xim
 
 
 # input

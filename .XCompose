@@ -82,6 +82,7 @@ include "%L"
 <Multi_key> <Left> <Right>			: "↔"
 <Multi_key> <Right> <Left>			: "↔"
 <Multi_key> <Up> <Down>				: "↕"
+<Multi_key> <Down> <Up>				: "↕"
 <Multi_key> <Up> <ampersand> <Down> : "⇵"
 <Multi_key> <Down> <Left>			: "↵"
 <Multi_key> <Left> <o>				: "⟲"
@@ -340,7 +341,7 @@ include "%L"
 <Multi_key> <asciicircum> <equal>	: "⁼" # 207C superscript equals sign
 <Multi_key> <asciicircum> <parenleft> : "⁽" # 207D superscript opening parenthesis
 <Multi_key> <asciicircum> <parenright> : "⁾" # 207E superscript closing parenthesis
-<Multi_key> <asciicircum> <i>		: "ⁱ" # 2071 superscript latin small letter i
+<Multi_key> <i> <asciicircum>		: "ⁱ" # 2071 superscript latin small letter i
 <Multi_key> <asciicircum> <n>		: "ⁿ" # 207F superscript latin small letter n
 <Multi_key> <underscore> <0>		: "₀" # 2080 subscript zero
 <Multi_key> <underscore> <1>		: "₁" # 2081 subscript one
