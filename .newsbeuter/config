@@ -14,7 +14,8 @@ show-read-articles no
 show-keymap-hint no
 refresh-on-startup no
 suppress-first-reload yes
-proxy "[::1]:3128"
+use-proxy yes
+#proxy "tankjr.ycc.fr:3128"
 
 unbind-key C
 unbind-key s
