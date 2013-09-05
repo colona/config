@@ -13,6 +13,7 @@ function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
 function noaslr { setarch "$(uname -m)" -R "$@"; }
+function nonet { sg no-network "$@"; }
 function man {
 	# from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
 	env LESS_TERMCAP_mb=$'\e[1;31m' \
