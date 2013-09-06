@@ -56,12 +56,14 @@ function disahex64 { hex2bin "$1" | ndisasm -b 64 -; }
 function __disahex_gas {
 	file=`mktemp` || return 1
 	hex2bin "$1" > $file
-	objdump -D -b binary -m "$2" --prefix-addresses --show-raw-insn $file | sed -n '6~1p'
+	objdump -D -b binary -m $2 --prefix-addresses --show-raw-insn $file | sed -n '6~1p'
 	rm -f $file
 }
 function disahex16_gas {  __disahex_gas "$1" "i8086"; }
 function disahex32_gas {  __disahex_gas "$1" "i386"; }
 function disahex64_gas {  __disahex_gas "$1" "i386:x86-64"; }
+function disahexarm_gas {  __disahex_gas "$1" "arm"; }
+function disahexarmthumb_gas {  __disahex_gas "$1" "arm -M force-thumb"; }
 function __ashex_nasm {
 	file=`mktemp` || return 1
 	echo "BITS $1\n" > $file
@@ -75,14 +77,15 @@ alias ashex64='__ashex_nasm 64'
 function __ashex_gas {
 	file=`mktemp` && inter=`mktemp` && output=`mktemp` || return 1
 	cat > $file || return 1
-	arch="--$1"
-	as $arch -o $inter $file || return 1
+	as $1 -o $inter $file || return 1
 	objcopy -O binary $inter $output || return 1
 	bin2hex < $output
 	rm -f $file $inter $output
 }
-alias ashex32_gas='__ashex_gas 32'
-alias ashex64_gas='__ashex_gas 64'
+alias ashex32_gas='__ashex_gas --32'
+alias ashex64_gas='__ashex_gas --64'
+alias ashexarm_gas='__ashex_gas'
+alias ashexarmthumb_gas='__ashex_gas -mthumb'
 
 
 # aliases
