@@ -1,5 +1,3 @@
-#! /bin/ksh
-
 # custom functions
 function 7z {
 	if [ -d "$1" ]; then
@@ -33,20 +31,17 @@ function img {
 		echo -e "\e[0;0m"
 	done
 }
-function bin2hex { if [ $# -eq 0 ]; then xxd -p; else echo -n "$*" | xxd -p; fi | tr -d '\n'; echo ""; }
-function hex2bin {
-	if [ $# -eq 0 ]; then
-		xxd -p -r
-	else
-		for s in $*; do
-			if [ $(( ${#s} % 2 )) -eq 1 ]; then
-				echo "Size of hex $s is not even." 1>&2
-				return 1
-			fi
-		done
-		echo "$*" | xxd -p -r
-	fi
-}
+
+# byte conversion
+function arg_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
+function _hex2str { echo -n "'"; while read -r -N 2 byte; do echo -nE '\x'$byte; done; echo "'"; }
+function _str2hex { while read -r -N 4 byte; do echo -nE ${byte:2:2}; done; echo ""; }
+alias str2hex='arg_as_stdin _str2hex'
+alias hex2str='arg_as_stdin _hex2str'
+alias bin2hex='arg_as_stdin "xxd -p"'
+alias hex2bin='arg_as_stdin "xxd -p -r"'
+function bin2str { bin2hex "$@" | hex2str; }
+function str2bin { str2hex "$@" | hex2bin; }
 
 # specially to assemble and disassemble
 function disa { objdump -d -M intel "$1" | less; }
