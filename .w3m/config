@@ -17,3 +17,7 @@ display_lineinfo 1
 decode_url 1
 frame 1
 tabstop 4
+visited_color magenta
+mark_color magenta
+anchor_color cyan
+active_color blue
