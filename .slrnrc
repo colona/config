@@ -6,6 +6,7 @@ set signature ".slrnsig"
 server "news.free.fr" ".jnewsrc-free"
 server "news.epita.fr" ".jnewsrc-epita"
 server "news-old.epita.fr" ".jnewsrc-epita-old"
+server "news.ovh.net" ".jnewsrc-ovh"
 
 set editor_command "vim '+set tw=72' +%d '%s'"
 charset outgoing "utf-8"
