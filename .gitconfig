@@ -28,3 +28,8 @@
 	status = auto
 	branch = auto
 	interactive = auto
+
+[tar "tar.xz"]
+    command = xz -c
+[tar "tar.bz2"]
+    command = bzip2
