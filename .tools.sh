@@ -29,6 +29,7 @@ function img {
 		echo -e "\e[0;0m"
 	done
 }
+function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
 function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
 
 # byte conversion
