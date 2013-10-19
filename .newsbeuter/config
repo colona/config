@@ -17,6 +17,11 @@ suppress-first-reload yes
 use-proxy yes
 #proxy "tankjr.ycc.fr:3128"
 
+color listnormal white black
+color listfocus yellow blue bold
+color listnormal_unread white black
+color listfocus_unread yellow blue bold
+
 unbind-key C
 unbind-key s
 unbind-key ^K
