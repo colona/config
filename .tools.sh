@@ -34,19 +34,19 @@ function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -n
 
 # byte conversion
 function _hex2str { echo -n "'"; while read -r -N 2 byte; do echo -nE '\x'$byte; done; echo "'"; }
-function _str2hex { while read -r -N 4 byte; do echo -nE ${byte:2:2}; done; echo ""; }
+function _str2hex { while read -r -N 4 byte; do echo -nE ${byte:2:2}; done; echo; }
 alias str2hex='args_as_stdin _str2hex'
 alias hex2str='args_as_stdin _hex2str'
-alias bin2hex='args_as_stdin "xxd -p"'
 alias hex2bin='args_as_stdin "xxd -p -r"'
+function bin2hex { args_as_stdin "xxd -p" "$@" | tr -d '\n'; echo; }
 function bin2str { bin2hex "$@" | hex2str; }
 function str2bin { str2hex "$@" | hex2bin; }
 
 # specially to assemble and disassemble
 function disa { objdump -d -M intel "$1" | less; }
-function disahex16 { hex2bin "$1" | ndisasm -b 16 -; }
-function disahex32 { hex2bin "$1" | ndisasm -b 32 -; }
-function disahex64 { hex2bin "$1" | ndisasm -b 64 -; }
+function disahex16 { hex2bin "$@" | ndisasm -b 16 -; }
+function disahex32 { hex2bin "$@" | ndisasm -b 32 -; }
+function disahex64 { hex2bin "$@" | ndisasm -b 64 -; }
 function __disahex_gas {
 	file=`mktemp` || return 1
 	hex2bin "$1" > $file
