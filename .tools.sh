@@ -33,8 +33,17 @@ function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputF
 function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
 
 # byte conversion
+function _str2hex {
+	while read -r -N 4 byte; do
+		if [ "${byte:0:1}" = "'" ] || [ "${byte:0:1}" = '"' ]; then
+			read -r -N 1 tmpbyte
+			byte="${byte:1:3}$tmpbyte"
+		fi
+		echo -nE ${byte:2:2}
+	done
+	echo
+}
 function _hex2str { echo -n "'"; while read -r -N 2 byte; do echo -nE '\x'$byte; done; echo "'"; }
-function _str2hex { while read -r -N 4 byte; do echo -nE ${byte:2:2}; done; echo; }
 alias str2hex='args_as_stdin _str2hex'
 alias hex2str='args_as_stdin _hex2str'
 alias hex2bin='args_as_stdin "xxd -p -r"'
@@ -48,32 +57,34 @@ function disahex16 { hex2bin "$@" | ndisasm -b 16 -; }
 function disahex32 { hex2bin "$@" | ndisasm -b 32 -; }
 function disahex64 { hex2bin "$@" | ndisasm -b 64 -; }
 function __disahex_gas {
-	file=`mktemp` || return 1
-	hex2bin "$1" > $file
-	objdump -D -b binary -m $2 --prefix-addresses --show-raw-insn $file | sed -n '6~1p'
+	file=`mktemp` &&
+	arch="$1" &&
+	shift &&
+	hex2bin "$@" > $file &&
+	objdump -D -b binary -m $arch --prefix-addresses --show-raw-insn $file | sed -n '6~1p' &&
 	rm -f $file
 }
-function disahex16_gas {  __disahex_gas "$1" "i8086"; }
-function disahex32_gas {  __disahex_gas "$1" "i386"; }
-function disahex64_gas {  __disahex_gas "$1" "i386:x86-64"; }
-function disahexarm_gas {  __disahex_gas "$1" "arm"; }
-function disahexarmthumb_gas {  __disahex_gas "$1" "arm -M force-thumb"; }
+function disahex16_gas {  __disahex_gas "i8086" "$@"; }
+function disahex32_gas {  __disahex_gas "i386" "$@"; }
+function disahex64_gas {  __disahex_gas "i386:x86-64" "$@"; }
+function disahexarm_gas {  __disahex_gas "arm" "$@"; }
+function disahexarmthumb_gas {  __disahex_gas "arm -M force-thumb" "$@"; }
 function __ashex_nasm {
-	file=`mktemp` || return 1
-	echo "BITS $1\n" > $file
-	cat > $file
-	nasm -f bin -o /dev/stdout $file | bin2hex
+	file=`mktemp` &&
+	echo "BITS $1\n" > $file &&
+	cat >> $file &&
+	nasm -f bin -o /dev/stdout $file | bin2hex &&
 	rm -f $file
 }
 alias ashex16='__ashex_nasm 16'
 alias ashex32='__ashex_nasm 32'
 alias ashex64='__ashex_nasm 64'
 function __ashex_gas {
-	file=`mktemp` && inter=`mktemp` && output=`mktemp` || return 1
-	cat > $file || return 1
-	as $1 -o $inter $file || return 1
-	objcopy -O binary $inter $output || return 1
-	bin2hex < $output
+	file=`mktemp` && inter=`mktemp` && output=`mktemp` &&
+	cat > $file &&
+	as $1 -o $inter $file &&
+	objcopy -O binary $inter $output &&
+	bin2hex < $output &&
 	rm -f $file $inter $output
 }
 alias ashex32_gas='__ashex_gas --32'
