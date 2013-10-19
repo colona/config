@@ -1,31 +1,8 @@
 # Warning: my primary shell is mksh, this file is probably outdated, take a
 # look at .kshrc for up-to-date settings.
 
-# custom function
-7z()
-{
-	if [ -d "$1" ]; then 7zr a -mx=9 "`basename $1`.7z" "$1";
-	else 7zr "$@"; fi
-}
-disa() { objdump -d -M intel "$1" | most; }
-hexd() { hexdump -C "$1" | most; }
-mkcd() { mkdir "$1"; cd $1; }
-addspamed() { echo "$1" >> ~/Maildir/spammed; }
-addspamer() { echo "$1" >> ~/Maildir/spammer; }
-addspamcontent() { echo "$1" >> ~/Maildir/spam_content; }
-noaslr() { setarch `uname -m` -R "$@"; }
-man()
-{ # from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
-}
+# tools common to all the shells
+source ~/.tools.sh
 
 # Alias definitions.
 alias emacs='emacs -nw'
