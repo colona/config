@@ -103,7 +103,7 @@ set foldtext=MyFoldText()
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 function WrongSpacingsHL()
     call matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
-    call matchadd('ErrorMsg', '\%>79v.\+', -1)
+    call matchadd('ErrorMsg', '\%>80v.\+', -1)
 endfunction
 nnoremap <F7> :call WrongSpacingsHL()<CR>
 nnoremap <F8> :call clearmatches()<CR>
