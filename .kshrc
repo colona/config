@@ -11,23 +11,14 @@ alias cal='cal -m'
 alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
 alias gdb='gdb -q'
-alias hexer='hexer -c "set bg=16"'
 
 # for new commands
 alias x='startx & exit'
-alias sshot='import -window root ~/screen.png'
-alias sshotold='xwd -root | convert xwd:- ~/screen.png'
-alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
-alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 alias pws='~/.password-store.sh'
-alias view='vim -R'
-alias hexd='hexer -R'
-alias clock='xclock -d -strftime "%T" -update 1 &'
 alias tm='exec tmux a -d'
 alias radio='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona'
 alias radio64='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona64'
 alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes --malloc-fill=0x42 --free-fill=0x43'
-alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
@@ -42,7 +33,7 @@ function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
 # through the bell, wich alert the user visually in many properly configured
 # window managers and terminal multiplexers.
 export HOSTNAME="$(hostname)"
-function prettypwd {
+function _prettypwd {
 	TRIMPWD=${PWD#${HOME}}
 	if [ ${#PWD} -gt ${#TRIMPWD} ]; then
 		echo -n "~$TRIMPWD"
@@ -50,7 +41,7 @@ function prettypwd {
 		echo -n "$PWD"
 	fi
 }
-PS1='${USER}@${HOSTNAME}:$(prettypwd)'
+PS1='${USER}@${HOSTNAME}:$(_prettypwd)'
 case "$TERM" in # set the title of terminal emulator
 	*xterm* | *rxvt* ) PS1=$'\1\e]0;'"$PS1"$'\a\1'"$PS1";;
 esac

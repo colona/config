@@ -8,6 +8,7 @@ function 7z {
 	fi
 }
 function mkcd { mkdir -p "$1" && cd "$1"; }
+function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
 function noaslr { setarch "$(uname -m)" -R "$@"; }
 function nonet { sg no-network "$@"; }
 function man {
@@ -30,7 +31,12 @@ function img {
 	done
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
-function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
+alias view='vim -R'
+alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
+alias sshot='import -window root ~/screen.png'
+alias sshotold='xwd -root | convert xwd:- ~/screen.png'
+alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
+alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 
 # byte conversion
 function _str2hex {
