@@ -301,39 +301,6 @@ end
 
 
 # ____________________cflow___________________
-define print_insn_type
-	if $argc != 1
-		help print_insn_type
-	else
-		if ($arg0 < 0 || $arg0 > 5)
-			printf "UNDEFINED/WRONG VALUE"
-		end
-		if ($arg0 == 0)
-			printf "UNKNOWN"
-		end
-		if ($arg0 == 1)
-			printf "JMP"
-		end
-		if ($arg0 == 2)
-			printf "JCC"
-		end
-		if ($arg0 == 3)
-			printf "CALL"
-		end
-		if ($arg0 == 4)
-			printf "RET"
-		end
-		if ($arg0 == 5)
-			printf "INT"
-		end
-	end
-end
-document print_insn_type
-Print human-readable mnemonic for the instruction type (usually $INSN_TYPE).
-Usage: print_insn_type INSN_TYPE_NUMBER
-end
-
-
 define get_insn_type
 	if $argc != 1
 		help get_insn_type
@@ -528,70 +495,4 @@ end
 document trace_run
 Create a runtime trace of target.
 Log overwrites(!) the file /tmp/gdb_trace_run.txt.
-end
-
-# original by Tavis Ormandy (http://my.opera.com/taviso/blog/index.dml/tag/gdb) (great fix!)
-# modified to work with Mac OS X by fG!
-# seems nasm shipping with Mac OS X has problems accepting input from stdin or heredoc
-# input is read into a variable and sent to a temporary file which nasm can read
-define assemble
-	# dont enter routine again if user hits enter
-	dont-repeat
-	if ($argc)
-		if (*$arg0 = *$arg0)
-		# check if we have a valid address by dereferencing it,
-		# if we havnt, this will cause the routine to exit.
-		end
-
-		# argument, assemble instructions into memory at the given address
-		if (sizeof(void *) == 8)
-			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
-				echo -e "BITS 64\n$ASMOPCODE" >/tmp/.assembly; \
-				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
-					| /usr/bin/hexdump -ve '1/1 "set *((unsigned char *) $arg0 + %#2_ax) = %#02x\n"' \
-					>/tmp/.gdbassemble ;
-		else
-			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
-				echo -e "BITS 32\n$ASMOPCODE" >/tmp/.assembly; \
-				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
-					| /usr/bin/hexdump -ve '1/1 "set *((unsigned char *) $arg0 + %#2_ax) = %#02x\n"' \
-					>/tmp/.gdbassemble;
-		end
-		source /tmp/.gdbassemble
-		# all done. clean the temporary files
-		shell /bin/rm -f /tmp/.gdbassemble /tmp/.assembly
-	else
-		# no argument, assemble instructions to stdout
-		if (sizeof(void *) == 8)
-			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
-				echo -e "BITS 64\n$ASMOPCODE" >/tmp/.assembly; \
-				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
-					| /usr/bin/ndisasm -i -b64 /dev/stdin
-		else
-			shell ASMOPCODE="$(while read r && test "$r" != end ; do echo -E "$r"; done)"; \
-				echo -e "BITS 32\n$ASMOPCODE" >/tmp/.assembly; \
-				/usr/bin/nasm -f bin -o /dev/stdout /tmp/.assembly \
-					| /usr/bin/ndisasm -i -b32 /dev/stdin;
-		end
-		shell /bin/rm -f /tmp/.assembly
-	end
-end
-document assemble
-Assemble instructions using nasm.
-Type a line containing "end" to indicate the end.
-If an address is specified, insert/modify instructions at that address.
-If no address is specified, assembled instructions are printed to stdout.
-Use the pseudo instruction "org ADDR" to set the base address.
-end
-
-define assemble_gas
-	dont-repeat
-	shell cat > /tmp/.assembly; echo ""; \
-		as -o /tmp/.gdbassemble < /tmp/.assembly; \
-		objdump -d -j .text /tmp/.gdbassemble; \
-		rm -f /tmp/.assembly /tmp/.gdbassemble
-end
-document assemble_gas
-Assemble instructions to binary opcodes. Uses GNU as and objdump.
-Usage: assemble_gas
 end
