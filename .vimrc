@@ -99,12 +99,24 @@ set foldtext=MyFoldText()
 " show trailings and 80+ char lines
 ":highlight ExtraWhitespace ctermbg=red guibg=red
 ":match ExtraWhitespace /\s\+$\| \+\ze\t/
-":au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
-":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
-function WrongSpacingsHL()
-    call matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
-    call matchadd('ErrorMsg', '\%>80v.\+', -1)
+function! WrongSpacingsHL()
+	if !exists("w:hlspacings")
+		let w:hlspacings = 1
+	endif
+	if w:hlspacings
+		let w:m1 = matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
+		let w:m2 = matchadd('ErrorMsg', '\%>80v.\+', -1)
+	endif
 endfunction
-nnoremap <F7> :call WrongSpacingsHL()<CR>
-nnoremap <F8> :call clearmatches()<CR>
-:autocmd BufWinEnter * call WrongSpacingsHL()
+function! WrongSpacingsUnHL()
+	if w:m1 > 0 && w:m2 > 0
+		call matchdelete(w:m1)
+		call matchdelete(w:m2)
+		let w:m1 = 0
+		let w:m2 = 0
+	endif
+endfunction
+nnoremap <F7> :let w:hlspacings = 1<CR>:call WrongSpacingsHL()<CR>
+nnoremap <F8> :let w:hlspacings = 0<CR>:call WrongSpacingsUnHL()<CR>
+:autocmd WinEnter,BufWinEnter * call WrongSpacingsHL()
+:autocmd WinLeave * call WrongSpacingsUnHL()
