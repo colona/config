@@ -20,7 +20,7 @@ set secure
 " visual
 set background=dark
 set synmaxcol=800
-set textwidth=79
+set textwidth=80
 set wrap
 set linebreak
 set laststatus=2
@@ -31,6 +31,7 @@ set fillchars=""
 set statusline=[%n]\ %<%f
 set statusline+=\ %((%1*%M%*%R%Y,%{&ff},%{strlen(&fenc)?&fenc:&enc})%)\ %=
 set statusline+=%-19(\Line\ [%4l/%4L]\ \Col\ [%02c%03V]%)\ ascii['%03b']\ %P
+set list listchars=tab:▸\ 
 colorscheme desert
 syntax on
 autocmd VimResized * exe "normal! \<c-w>="
@@ -96,16 +97,15 @@ function! MyFoldText()
 endfunction
 set foldtext=MyFoldText()
 
-" show trailings and 80+ char lines
-":highlight ExtraWhitespace ctermbg=red guibg=red
-":match ExtraWhitespace /\s\+$\| \+\ze\t/
+" show trailings and 81+ char lines
+highlight ColorColumn ctermbg=red ctermfg=white
 function! WrongSpacingsHL()
 	if !exists("w:hlspacings")
 		let w:hlspacings = 1
 	endif
 	if w:hlspacings
-		let w:m1 = matchadd('ErrorMsg', '\s\+$\| \+\ze\t', -1)
-		let w:m2 = matchadd('ErrorMsg', '\%>80v.\+', -1)
+		let w:m1 = matchadd('ColorColumn', '\s\+$\| \+\ze\t', -1)
+		let w:m2 = matchadd('ColorColumn', '\%81v', -1)
 	endif
 endfunction
 function! WrongSpacingsUnHL()
@@ -120,3 +120,18 @@ nnoremap <F7> :let w:hlspacings = 1<CR>:call WrongSpacingsHL()<CR>
 nnoremap <F8> :let w:hlspacings = 0<CR>:call WrongSpacingsUnHL()<CR>
 :autocmd WinEnter,BufWinEnter * call WrongSpacingsHL()
 :autocmd WinLeave * call WrongSpacingsUnHL()
+
+" hlnext, from Damian Conway
+nnoremap <silent> n n:call HLNext(0.4)<cr>
+nnoremap <silent> N N:call HLNext(0.4)<cr>
+highlight WhiteOnRed ctermbg=red ctermfg=white
+function! HLNext (blinktime)
+	let [bufnum, lnum, col, off] = getpos('.')
+	let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+	let target_pat = '\c\%#'.@/
+	let ring = matchadd('WhiteOnRed', target_pat, 101)
+	redraw
+	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+	call matchdelete(ring)
+	redraw
+endfunction
