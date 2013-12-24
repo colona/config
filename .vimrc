@@ -54,7 +54,7 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Right> <C-w>l
 nnoremap <S-Left> :bp<CR>
 nnoremap <S-Right> :bn<CR>
-noremap <F2> :make<CR>
+noremap <F2> :silent! :make \| :redraw! \| :botright :cw<cr>
 nnoremap <F4> :cp<CR>
 nnoremap <F5> :cn<CR>
 noremap <F1> <esc>
