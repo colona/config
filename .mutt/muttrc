@@ -58,3 +58,12 @@ macro index c "A<change-folder>?<toggle-mailboxes>" "open a different folder"
 macro pager c "A<change-folder>?<toggle-mailboxes>" "open a different folder"
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"
 macro index M "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+color quoted green black
+color quoted1 yellow black
+color quoted2 magenta black
+color quoted3 cyan black
+color quoted4 green black
+color quoted5 yellow black
+color quoted6 magenta black
+color quoted7 cyan black
