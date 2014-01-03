@@ -8,7 +8,6 @@ function 7z {
 	fi
 }
 function mkcd { mkdir -p "$1" && cd "$1"; }
-function args_as_stdin { if [ $# -le 1 ]; then $1; else cmd="$1"; shift; echo -nE "$@" | $cmd; fi; }
 function noaslr { setarch "$(uname -m)" -R "$@"; }
 function nonet { sg no-network "$@"; }
 function man {
@@ -38,7 +37,51 @@ alias sshotold='xwd -root | convert xwd:- ~/screen.png'
 alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 
-# byte conversion
+# file renamming
+function prepend { # prepend PREFIX FILE...
+	prefix="$1"
+	shift
+	while [ $# -gt 0 ]; do
+		mv "$1" "$prefix$1"
+		shift
+	done
+}
+function append { # append POSTFIX FILE...
+	postfix="$1"
+	shift
+	while [ $# -gt 0 ]; do
+		mv "$1" "$1$postfix"
+		shift
+	done
+}
+function prestrip { # prestrip COUNT FILE...
+	count="$1"
+	shift
+	while [ $# -gt 0 ]; do
+		mv "$1" "${1:$count:$((${#1} - $count))}"
+		shift
+	done
+}
+function poststrip { # poststrip COUNT FILE...
+	count="$1"
+	shift
+	while [ $# -gt 0 ]; do
+		mv "$1" "${1:0:$((${#1} - $count))}"
+		shift
+	done
+}
+
+# byte conversion : bin2hex bin2str hex2str hex2bin str2bin str2hex
+# all work with `FUNCTION VALUE` or `echo VALUE | FUNCTION`
+function args_as_stdin {
+	if [ $# -le 1 ]; then
+		$1
+	else
+		cmd="$1"
+		shift
+		echo -nE "$@" | $cmd
+	fi
+}
 function _str2hex {
 	while read -r -N 4 byte; do
 		if [ "${byte:0:1}" = "'" ] || [ "${byte:0:1}" = '"' ]; then
@@ -49,13 +92,28 @@ function _str2hex {
 	done
 	echo
 }
-function _hex2str { echo -n "'"; while read -r -N 2 byte; do echo -nE '\x'$byte; done; echo "'"; }
+function _hex2str {
+	echo -n "'"
+	while read -r -N 2 byte; do
+		echo -nE '\x'$byte
+	done
+	echo "'"
+}
+function _bin2tab {
+	file="`mktemp`" &&
+	cat > "$file" &&
+	xxd -i "$file" &&
+	rm -f "$file"
+}
 alias str2hex='args_as_stdin _str2hex'
 alias hex2str='args_as_stdin _hex2str'
+alias bin2tab='args_as_stdin _bin2tab'
 alias hex2bin='args_as_stdin "xxd -p -r"'
 function bin2hex { args_as_stdin "xxd -p" "$@" | tr -d '\n'; echo; }
 function bin2str { bin2hex "$@" | hex2str; }
 function str2bin { str2hex "$@" | hex2bin; }
+function hex2tab { hex2bin "$@" | bin2tab; }
+function str2tab { str2bin "$@" | bin2tab; }
 
 # specially to assemble and disassemble
 function disa { objdump -d -M intel "$1" | less; }
