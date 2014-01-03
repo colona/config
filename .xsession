@@ -31,7 +31,7 @@ while true; do
 
 	if [ "$HOSTNAME" == "klesk" ]; then
 		batt="[$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
-		temp="$(sensors | grep temp1 | cut -f 9 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
+		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
 	fi
 
 	mem=$(free -m | head -2 | tail -1)
