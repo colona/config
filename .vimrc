@@ -59,6 +59,8 @@ nnoremap <F4> :cp<CR>
 nnoremap <F5> :cn<CR>
 noremap <F1> <esc>
 inoremap <F1> <esc>
+" select last insert characters
+nnoremap gV `[v`]
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
@@ -131,7 +133,7 @@ function! HLNext (blinktime)
 	let target_pat = '\c\%#'.@/
 	let ring = matchadd('WhiteOnRed', target_pat, 101)
 	redraw
-	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+	exec 'sleep ' . float2nr(a:blinktime * 300) . 'm'
 	call matchdelete(ring)
 	redraw
 endfunction
