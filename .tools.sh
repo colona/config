@@ -30,6 +30,7 @@ function img {
 	done
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
+function timestamp { echo [`date +'%x %T.%N'`] Start!; while read line; do echo [`date +'%x %T.%N'`] "$line"; done; echo [`date +'%x %T.%N'`] Done!; }
 alias view='vim -R'
 alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 alias sshot='import -window root ~/screen.png'
