@@ -1,19 +1,21 @@
 [alias]
 	st=status
 	co=checkout
-    com=checkout master
-    cam=commit -a -m
-    cm=commit -m
-    br=branch
+	com=checkout master
+	cam=commit -a -m
+	cm=commit -m
+	br=branch
 	d=diff
+	ds=diff --cached
+	da=diff HEAD
 	a=add
 	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%cn %C(yellow)%cd%Creset %s' --graph --branches --all
-    wdiff=diff --word-diff
-    st=status -sb -uno
+	wdiff=diff --word-diff
+	st=status -sb -uno
 	unstage=reset HEAD
 	uncommit=reset --soft HEAD^
 	root=!pwd
-    poule=pull
+	poule=pull
 	choucroute=checkout
 
 [user]
@@ -30,6 +32,6 @@
 	interactive = auto
 
 [tar "tar.xz"]
-    command = xz -c
+	command = xz -c
 [tar "tar.bz2"]
-    command = bzip2
+	command = bzip2
