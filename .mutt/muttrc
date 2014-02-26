@@ -19,18 +19,6 @@ set forward_quote
 unset mime_forward
 set include
 
-set mask="!^\\.[^.]"
-set record="+.Sent"
-set postponed="+.INBOX.Drafts"
-mailboxes ! + `\
-for file in ~/Maildir/.*; do \
-   box=$(basename "$file"); \
-   if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
-       -a ! "$box" = '.subscriptions' ]; then \
-       echo -n "\"+$box\" "; \
-  fi; \
-done`
-
 set sort=threads
 set sort_aux=last-date-received
 set tilde
@@ -43,6 +31,29 @@ unset mark_old
 set quit=ask-yes
 unset markers
 set pager_stop
+
+set mask="!^\\.[^.]"
+set record="+.Sent"
+set postponed="+.INBOX.Drafts"
+mailboxes ! + `\
+for file in ~/Maildir/.*; do \
+	box=$(basename "$file"); \
+	if [ ! "$box" = '.' -a ! "$box" = '..' -a ! "$box" = '.customflags' \
+		-a ! "$box" = '.subscriptions' ]; then \
+		echo -n "\"+$box\" "; \
+	fi; \
+done`
+folder-hook . 'set from="ivan@ycc.fr"'
+folder-hook . 'set realname="Ivan Delalande"'
+folder-hook . 'set signature="~/.sig"'
+folder-hook \.epita.* 'set from="ivan.delalande@epita.fr"'
+folder-hook \.epita.* 'set realname="Ivan Delalande"'
+folder-hook \.epita.* 'set signature="~/.sig.epita"'
+folder-hook .*lse.* 'set from="colona@lse.epita.fr"'
+folder-hook .*lse.* 'set realname="Colona"'
+folder-hook \.arista.* 'set from="colona@aristanetworks.com"'
+folder-hook \.arista.* 'set realname="Ivan Delalande"'
+folder-hook \.arista.* 'set signature="~/.sig.arista"'
 
 bind index j next-unread
 bind index k previous-unread
