@@ -30,7 +30,8 @@ while true; do
 	cpuload="($(cat /proc/loadavg | awk '{ print $1, $2, $3}'))"
 
 	if [ "$HOSTNAME" == "klesk" ]; then
-		batt="[$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
+		if acpi -a | grep -q on-line; then power='='; else power=''; fi
+		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
 		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
 	fi
 
