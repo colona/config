@@ -12,6 +12,9 @@ behave xterm
 set title
 set noerrorbells
 set novisualbell
+set nojoinspaces
+set switchbuf=useopen
+set noeol
 
 " per-project settings
 set exrc
