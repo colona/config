@@ -8,9 +8,14 @@ set header_cache="~/.mutt/headercache"
 auto_view text/html
 alternative_order text/plain text text/enriched text/html
 
-set realname="Colona"
-set from="colona@ycc.fr"
+set realname="Ivan Delalande"
+set from="ivan@ycc.fr"
+alternates "colona@ycc.fr|colona0@gmail.com|idelalande@yahoo.fr"
+alternates "delala_i@epita.fr|ivan.delalande@epita.fr|colona@lse.epita.fr"
+alternates "colona@aristanetworks.com"
 set use_from="yes"
+set reverse_name
+set reverse_realname
 set envelope_from="yes"
 set config_charset=utf8
 set editor="vim '+set tw=72'"
@@ -31,6 +36,8 @@ unset mark_old
 set quit=ask-yes
 unset markers
 set pager_stop
+set pager_index_lines=6
+set timeout=60
 
 set mask="!^\\.[^.]"
 set record="+.Sent"
@@ -43,16 +50,13 @@ for file in ~/Maildir/.*; do \
 		echo -n "\"+$box\" "; \
 	fi; \
 done`
-folder-hook . 'set from="ivan@ycc.fr"'
-folder-hook . 'set realname="Ivan Delalande"'
+folder-hook . "unmy_hdr From:"
 folder-hook . 'set signature="~/.sig"'
-folder-hook \.epita.* 'set from="ivan.delalande@epita.fr"'
-folder-hook \.epita.* 'set realname="Ivan Delalande"'
+folder-hook \.epita.* 'my_hdr From: Ivan Delalande <ivan.delalande@epita.fr>'
 folder-hook \.epita.* 'set signature="~/.sig.epita"'
-folder-hook .*lse.* 'set from="colona@lse.epita.fr"'
-folder-hook .*lse.* 'set realname="Colona"'
-folder-hook \.arista.* 'set from="colona@aristanetworks.com"'
-folder-hook \.arista.* 'set realname="Ivan Delalande"'
+folder-hook .*lse.* 'my_hdr From: Colona <colona@lse.epita.fr>'
+folder-hook .*lse.* 'set signature="~/.sig.epita"'
+folder-hook \.arista.* 'my_hdr From: Ivan Delalande <colona@aristanetworks.com>'
 folder-hook \.arista.* 'set signature="~/.sig.arista"'
 
 bind index j next-unread
