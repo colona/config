@@ -9,7 +9,7 @@
 	ds=diff --cached
 	da=diff HEAD
 	a=add
-	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%cn %C(yellow)%cd%Creset %s' --graph --branches --all
+	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%an %C(yellow)%ad%Creset %s' --graph --branches --all
 	wdiff=diff --word-diff
 	st=status -sb -uno
 	unstage=reset HEAD
