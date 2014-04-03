@@ -3,6 +3,7 @@ HOSTNAME="$(hostname)"
 case "$HOSTNAME" in
 	klesk) xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS;;
 	phobos) xrandr --output VGA1 --auto --output HDMI1 --auto --right-of VGA1;;
+	visor) xrandr --output LVDS1 --auto --output HDMI2 --auto --above LVDS1;;
 esac
 
 xset -dpms
@@ -33,6 +34,12 @@ while true; do
 		if acpi -a | grep -q on-line; then power='='; else power=''; fi
 		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
 		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
+	fi
+	if [ "$HOSTNAME" == "visor" ]; then
+		if acpi -a | grep -q on-line; then power='='; else power=''; fi
+		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
+		temp="$(echo $(sensors | grep Core\ 0) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
+		temp="$temp $(echo $(sensors | grep Core\ 2) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
 	fi
 
 	mem=$(free -m | head -2 | tail -1)
