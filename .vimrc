@@ -34,7 +34,7 @@ set fillchars=""
 set statusline=[%n]\ %<%f
 set statusline+=\ %((%1*%M%*%R%Y,%{&ff},%{strlen(&fenc)?&fenc:&enc})%)\ %=
 set statusline+=%-19(\Line\ [%4l/%4L]\ \Col\ [%02c%03V]%)\ ascii['%03b']\ %P
-set list listchars=tab:▸\ 
+set listchars=tab:▸\ 
 colorscheme desert
 syntax on
 autocmd VimResized * exe "normal! \<c-w>="
@@ -64,6 +64,11 @@ noremap <F1> <esc>
 inoremap <F1> <esc>
 " select last insert characters
 nnoremap gV `[v`]
+" search the current selection
+vnoremap * y/<C-r>"<CR>
+" add the current word/selection to the last search
+nnoremap ;* :execute "/".histget("search", -1).'\\|'.expand("<cword>")<CR>
+vnoremap ;* y:execute "/".histget("search", -1).'\\|'.@"<CR>
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
