@@ -43,7 +43,7 @@ function _prettypwd {
 }
 PS1='${USER}@${HOSTNAME}:$(_prettypwd)'
 case "$TERM" in # set the title of terminal emulator
-	*xterm* | *rxvt* ) PS1=$'\1\e]0;'"$PS1"$'\a\1'"$PS1";;
+	*xterm* | *rxvt* | st* ) PS1=$'\1\e]0;'"$PS1"$'\a\1'"$PS1";;
 esac
 PS1=$'\1\r'"$PS1"
 PS1+=$'\1\a\1'
