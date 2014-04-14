@@ -45,6 +45,7 @@ set ignorecase
 set noincsearch
 
 " remaps and movements
+let mapleader=";"
 set pastetoggle=<F3>
 set nostartofline
 noremap j gj
@@ -67,8 +68,8 @@ nnoremap gV `[v`]
 " search the current selection
 vnoremap * y/<C-r>"<CR>
 " add the current word/selection to the last search
-nnoremap ;* :execute "/".histget("search", -1).'\\|'.expand("<cword>")<CR>
-vnoremap ;* y:execute "/".histget("search", -1).'\\|'.@"<CR>
+nnoremap <Leader>* :execute "/".histget("search", -1).'\\|'.expand("<cword>")<CR>
+vnoremap <Leader>* y:execute "/".histget("search", -1).'\\|'.@"<CR>
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
