@@ -72,6 +72,24 @@ function poststrip { # poststrip COUNT FILE...
 	done
 }
 
+# computations from stdin
+function linesum {
+	read res
+	while read line; do
+		res=$(($res + $line))
+	done
+	echo $res
+}
+function lineavg {
+	read res
+	count=1
+	while read line; do
+		res=$(($res + $line))
+		count=$(($count + 1))
+	done
+	echo $(($res / $count))
+}
+
 # byte conversion : bin2hex bin2str hex2str hex2bin str2bin str2hex
 # all work with `FUNCTION VALUE` or `echo VALUE | FUNCTION`
 function args_as_stdin {
