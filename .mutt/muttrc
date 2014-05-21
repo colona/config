@@ -12,7 +12,7 @@ set realname="Ivan Delalande"
 set from="ivan@ycc.fr"
 alternates "colona@ycc.fr|colona0@gmail.com|idelalande@yahoo.fr"
 alternates "delala_i@epita.fr|ivan.delalande@epita.fr|colona@lse.epita.fr"
-alternates "colona@aristanetworks.com"
+alternates "colona@aristanetworks.com|colona@arista.com"
 set use_from="yes"
 set reverse_name
 set reverse_realname
@@ -56,7 +56,7 @@ folder-hook \.epita.* 'my_hdr From: Ivan Delalande <ivan.delalande@epita.fr>'
 folder-hook \.epita.* 'set signature="~/.sig.epita"'
 folder-hook .*lse.* 'my_hdr From: Colona <colona@lse.epita.fr>'
 folder-hook .*lse.* 'set signature="~/.sig.epita"'
-folder-hook \.arista.* 'my_hdr From: Ivan Delalande <colona@aristanetworks.com>'
+folder-hook \.arista.* 'my_hdr From: Ivan Delalande <colona@arista.com>'
 folder-hook \.arista.* 'set signature="~/.sig.arista"'
 
 bind index j next-unread
