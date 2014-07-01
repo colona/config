@@ -26,7 +26,7 @@
 # %r    In many contexts, mutt passes key IDs to pgp.  %r expands to
 #       a list of key IDs.
 
-set pgp_sign_as=0x2F7F9EAB
+set pgp_sign_as=0x4DB5D809
 
 # Note that we explicitly set the comment armor header since GnuPG, when used
 # in some localiaztion environments, generates 8bit data in that header, thereby
