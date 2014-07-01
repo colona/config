@@ -41,14 +41,15 @@ function _prettypwd {
 		echo -n "$PWD"
 	fi
 }
-PS1='${USER}@${HOSTNAME}:$(_prettypwd)'
-case "$TERM" in # set the title of terminal emulator
-	*xterm* | *rxvt* | st* ) PS1=$'\1\e]0;'"$PS1"$'\a\1'"$PS1";;
+PS1="${USER}@${HOSTNAME}:"'$(_prettypwd)'
+case "$TERM" in
+	*xterm* | *rxvt* | st* ) PS1=$'\1'"$(tput tsl)$PS1"$'\a\1'"$PS1";;
 esac
 PS1=$'\1\r'"$PS1"
 PS1+=$'\1\a\1'
-PS1+=$'\1''$(if [[ $? -eq 0 ]]; then echo -ne "\e[0;32m"; else echo -ne "\e[0;31m"; fi)'$'\1'
-PS1+=$'$\1\e[0m\1 '
+PS1+=$'\1''$(if [[ $? -eq 0 ]]; then echo -n "'"$(tput setaf 2)"'";'
+PS1+='else echo -n "'"$(tput setaf 1)"'"; fi)'$'\1'
+PS1+=$'$\1'"$(tput sgr0)"$'\1 '
 export PS1
 
 
