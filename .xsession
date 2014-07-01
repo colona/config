@@ -24,7 +24,7 @@ if [ "$HOSTNAME" == "klesk" ]; then
 fi
 
 while true; do
-	topout=$(echo `top -b -n 2 -d 1 | grep -E 'Cpu\(s\):' | tail -1`)
+	topout=$(echo `top -b -n 2 -d 2 | grep -E 'Cpu\(s\):' | tail -1`)
 	cpuuse="$(($(echo $topout | cut -f 2 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.') + $(echo $topout | cut -f 4 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.')))% "
 
 	date="$(date +'%a %b %d %H:%M')"
@@ -42,14 +42,10 @@ while true; do
 		temp="$temp $(echo $(sensors | grep Core\ 2) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
 	fi
 
-	mem=$(free -m | head -2 | tail -1)
-	totmem=$(echo $mem | cut -f 2 -d ' ')
-	realmem=$(( $(echo $mem | cut -f 3 -d ' ') - $(echo $mem | cut -f 6 -d ' ') - $(echo $mem | cut -f 7 -d ' ') ))
-	percmem="$(($realmem * 100 / $totmem))%"
-	realmem+="M "
+	realmem="$(~/.realmem.sh)"
 
 	xsetroot -name "${temp}${batt}${cpuuse}${cpuload}   ${realmem}${percmem}   $date"
-	sleep 5
+	sleep 1
 done &
 
 exec ~/.dwm/dwm
