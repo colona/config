@@ -30,6 +30,7 @@ function img {
 	done
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
+function pdfsplit { gs -sDEVICE=pdfwrite -dSAFER -o %03d.pdf "$1"; }
 function timestamp { echo [`date +'%x %T.%N'`] Start!; while read line; do echo [`date +'%x %T.%N'`] "$line"; done; echo [`date +'%x %T.%N'`] Done!; }
 function lvim { vim "$(echo "$1" | cut -d : -f 1)" +$(echo "$1" | cut -d : -f 2); }
 alias view='vim -R'
