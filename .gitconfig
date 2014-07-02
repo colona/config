@@ -19,7 +19,7 @@
 	choucroute=checkout
 
 [user]
-	name = Ivan \"Colona\" Delalande
+	name = Ivan Delalande
 	email = colona@ycc.fr
 [core]
 	editor = vim
