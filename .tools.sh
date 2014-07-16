@@ -11,14 +11,11 @@ function mkcd { mkdir -p "$1" && cd "$1"; }
 function noaslr { setarch "$(uname -m)" -R "$@"; }
 function nonet { sg no-network "$@"; }
 function man {
-	# from https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
-	env LESS_TERMCAP_mb=$'\e[1;31m' \
-		LESS_TERMCAP_md=$'\e[1;31m' \
-		LESS_TERMCAP_me=$'\e[0m' \
-		LESS_TERMCAP_se=$'\e[0m' \
-		LESS_TERMCAP_so=$'\e[1;44;33m' \
-		LESS_TERMCAP_ue=$'\e[0m' \
-		LESS_TERMCAP_us=$'\e[1;32m' \
+	env LESS_TERMCAP_md="$(tput bold; tput setaf 1)" \
+		LESS_TERMCAP_us="$(tput bold; tput setaf 2)" \
+		LESS_TERMCAP_ue="$(tput sgr0)" \
+		LESS_TERMCAP_so="$(tput bold; tput setaf 3; tput setab 4)" \
+		LESS_TERMCAP_se="$(tput sgr0)" \
 			man "$@"
 }
 function img {
