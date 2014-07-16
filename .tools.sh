@@ -18,6 +18,21 @@ function man {
 		LESS_TERMCAP_se="$(tput sgr0)" \
 			man "$@"
 }
+function colorize {
+	case "$1" in
+		-f) color="mt=1;30";;
+		-r) color="mt=1;31";;
+		-g) color="mt=1;32";;
+		-y) color="mt=1;33";;
+		-b) color="mt=1;34";;
+		-p) color="mt=1;35";;
+		-c) color="mt=1;36";;
+		*) cat; exit;;
+	esac
+	pattern="$2"
+	shift 2
+	GREP_COLORS="$color" grep -E --color=always "$pattern|" | colorize "$@"
+}
 function img {
 	# by http://www.reddit.com/user/xkero
 	for image in "$@"; do
