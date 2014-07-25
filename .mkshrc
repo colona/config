@@ -70,3 +70,4 @@ export GTK_IM_MODULE=xim
 # input
 set -o emacs
 bind '^L=clear-screen'
+bind '^?=delete-char-forward'
