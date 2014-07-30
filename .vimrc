@@ -68,7 +68,7 @@ nnoremap gV `[v`]
 " search the current selection
 vnoremap * y/<C-r>"<CR>
 " add the current word/selection to the last search
-nnoremap <Leader>* :execute "/".histget("search", -1).'\\|'.expand("<cword>")<CR>
+nnoremap <Leader>* :execute "/".histget("search", -1).'\\|\<'.expand("<cword>").'\>'<CR>
 vnoremap <Leader>* y:execute "/".histget("search", -1).'\\|'.@"<CR>
 
 " xterm-style keys sent from tmux : C-arrows
