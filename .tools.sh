@@ -149,7 +149,7 @@ function hex2tab { hex2bin "$@" | bin2tab; }
 function str2tab { str2bin "$@" | bin2tab; }
 
 # specially to assemble and disassemble
-function disa { objdump -d -M intel "$1" | less; }
+function disa { objdump -d -M intel -w --prefix-addresses --show-raw-insn "$1" | less; }
 function disahex16 { hex2bin "$@" | ndisasm -b 16 -; }
 function disahex32 { hex2bin "$@" | ndisasm -b 32 -; }
 function disahex64 { hex2bin "$@" | ndisasm -b 64 -; }
