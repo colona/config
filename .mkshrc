@@ -54,7 +54,7 @@ export PS1
 
 
 # environment
-eval "$(lesspipe)" # populate $LESSOPEN and $LESSCLOSE
+eval "$(lesspipe 2>/dev/null || lesspipe.sh)" # populate $LESSOPEN and $LESSCLOSE
 if [ "$TERM" != "dumb" ]; then
 	eval "$(dircolors -b)" # enable advanced colors for ls
 fi
