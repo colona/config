@@ -1,8 +1,7 @@
 HOSTNAME="$(hostname)"
 
-case "$HOSTNAME" in
 	klesk) xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS;;
-	phobos) xrandr --output VGA1 --auto --output HDMI1 --auto --right-of VGA1;;
+	phobos) xrandr --output HDMI1 --auto --output HDMI2 --auto --right-of HDMI1;;
 	visor) xrandr --output LVDS1 --auto --output HDMI2 --auto --above LVDS1;;
 esac
 
