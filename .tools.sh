@@ -27,7 +27,7 @@ function colorize {
 		-b) color="mt=1;34";;
 		-p) color="mt=1;35";;
 		-c) color="mt=1;36";;
-		*) cat; exit;;
+		*) cat; return;;
 	esac
 	pattern="$2"
 	shift 2
@@ -40,6 +40,16 @@ function img {
 			| awk -F '[)(,]' '!/^#/{gsub(/ /,"");printf"\033[48;2;"$3";"$4";"$5"m "}'
 		echo -e "\e[0;0m"
 	done
+}
+function wdump {
+	url="$1"
+	echo "$url"
+	read filename?'Filename: '
+	filename=$(echo -E "$filename" | tr -d -c '[:alnum:]-_. ' | tr ' ' '-')
+	filename="${filename}.txt"
+	echo $url >> "$filename"
+	w3m -dump "$url" >> "$filename"
+	less "$filename"
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
 function pdfsplit { gs -sDEVICE=pdfwrite -dSAFER -o %03d.pdf "$1"; }
