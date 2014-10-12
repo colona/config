@@ -67,7 +67,7 @@ function prepend { # prepend PREFIX FILE...
 	prefix="$1"
 	shift
 	while [ $# -gt 0 ]; do
-		mv "$1" "$prefix$1"
+		mv -- "$1" "$prefix$1"
 		shift
 	done
 }
@@ -75,7 +75,7 @@ function append { # append POSTFIX FILE...
 	postfix="$1"
 	shift
 	while [ $# -gt 0 ]; do
-		mv "$1" "$1$postfix"
+		mv -- "$1" "$1$postfix"
 		shift
 	done
 }
@@ -83,7 +83,7 @@ function prestrip { # prestrip COUNT FILE...
 	count="$1"
 	shift
 	while [ $# -gt 0 ]; do
-		mv "$1" "${1:$count:$((${#1} - $count))}"
+		mv -- "$1" "${1:$count:$((${#1} - $count))}"
 		shift
 	done
 }
@@ -91,7 +91,7 @@ function poststrip { # poststrip COUNT FILE...
 	count="$1"
 	shift
 	while [ $# -gt 0 ]; do
-		mv "$1" "${1:0:$((${#1} - $count))}"
+		mv -- "$1" "${1:0:$((${#1} - $count))}"
 		shift
 	done
 }
