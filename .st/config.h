@@ -8,6 +8,7 @@
 static char font[] = "Monospace:pixelsize=12:antialias=true:autohint=false";
 static int borderpx = 2;
 static char shell[] = "/bin/mksh";
+static char *utmp = NULL;
 
 /* identification sequence returned in DA and DECID */
 static char vtiden[] = "\033[?6c";
@@ -115,6 +116,7 @@ static Shortcut shortcuts[] = {
 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_Prior,       xzoom,          {.i = +1} },
 	{ MODKEY|ShiftMask,     XK_Next,        xzoom,          {.i = -1} },
+	{ MODKEY|ShiftMask,     XK_Home,        xzoomreset,     {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ MODKEY|ShiftMask,     XK_Insert,      clippaste,      {.i =  0} },
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
