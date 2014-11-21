@@ -19,6 +19,9 @@ alias tm='exec tmux a -d'
 alias radio='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona'
 alias radio64='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona64'
 alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes --malloc-fill=0x42 --free-fill=0x43'
+alias tp1='synclient TouchpadOff=0'
+alias tp0='synclient TouchpadOff=1'
+alias youtube-info='youtube-dl --get-title --get-duration --get-description --get-format --'
 function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
