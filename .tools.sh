@@ -49,7 +49,7 @@ function wdump {
 	filename="${filename}.txt"
 	echo $url >> "$filename"
 	w3m -dump "$url" >> "$filename"
-	less "$filename"
+	vim "$filename"
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
 function pdfsplit { gs -sDEVICE=pdfwrite -dSAFER -o %03d.pdf "$1"; }

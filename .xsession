@@ -23,28 +23,23 @@ if [ "$HOSTNAME" == "klesk" ]; then
 fi
 
 while true; do
-	topout=$(echo `top -b -n 2 -d 2 | grep -E 'Cpu\(s\):' | tail -1`)
-	cpuuse="$(($(echo $topout | cut -f 2 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.') + $(echo $topout | cut -f 4 -d ' ' | cut -f 1 -d '%' | cut -f 1 -d '.')))% "
-
 	date="$(date +'%a %b %d %H:%M')"
 	cpuload="($(cat /proc/loadavg | awk '{ print $1, $2, $3}'))"
 
 	if [ "$HOSTNAME" == "klesk" ]; then
 		if acpi -a | grep -q on-line; then power='='; else power=''; fi
-		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]   "
-		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
+		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]"
+		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
 	fi
 	if [ "$HOSTNAME" == "visor" ]; then
 		if acpi -a | grep -q on-line; then power='='; else power=''; fi
 		batt="${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1 | tr '\n' ' ')"
-		batt="[$(echo $batt)]   "
+		batt="[$(echo $batt)]"
 		temp="$(echo $(sensors | grep Core\ 0) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
-		temp="$temp $(echo $(sensors | grep Core\ 1) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')° "
+		temp="$temp $(echo $(sensors | grep Core\ 1) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
 	fi
 
-	realmem="$(~/.realmem.sh)"
-
-	xsetroot -name "${temp}${batt}${cpuuse}${cpuload}   ${realmem}${percmem}   $date"
+	xsetroot -name "${temp} ${batt}   $(~/.tools.realcpu.sh 3) ${cpuload}   $(~/.tools.realmem.sh)   $date"
 	sleep 1
 done &
 
