@@ -49,6 +49,7 @@ static const Layout layouts[] = {
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "/home/colona/.st/st", NULL };
 static const char *cdtermcmd[]  = { "sh", "-c", "cd \"$(xcwd)\" && exec /home/colona/.st/st", NULL };
+static const char *trackpointcmd[]  = { "sh", "-c", "synclient TouchpadOff=\"$((1 - $(synclient | grep TouchpadOff | cut -d '=' -f 2) ))\"", NULL };
 static const char *musiccmd[]  = { "amixer", "set", "Master", "toggle", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *volupcmd[]  = { "amixer", "set", "Master", "5%+", NULL };
@@ -59,6 +60,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = cdtermcmd } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = trackpointcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
