@@ -1,7 +1,7 @@
 #!/bin/sh
 
 function readfield {
-	echo "$(echo $(grep 'cpu ' /proc/stat) | cut -d ' ' -f "$1")"
+	echo "$(grep 'cpu ' /proc/stat | tr -s ' ' | cut -d ' ' -f "$1")"
 }
 
 previdle=$(($(readfield 5) + $(readfield 6)))

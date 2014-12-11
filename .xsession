@@ -24,19 +24,15 @@ fi
 
 while true; do
 	date="$(date +'%a %b %d %H:%M')"
-	cpuload="($(cat /proc/loadavg | awk '{ print $1, $2, $3}'))"
+	cpuload="($(cat /proc/loadavg | cut -d ' ' -f 1-3))"
 
-	if [ "$HOSTNAME" == "klesk" ]; then
+	if [ -x "$(command -v acpi)" ]; then
 		if acpi -a | grep -q on-line; then power='='; else power=''; fi
-		batt="[${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1)]"
-		temp="$(echo $(sensors | grep temp1) | cut -f 2 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
+		batt="$(acpi -b | cut -d ' ' -f 4 | tr '\n' ' ')"
+		batt="[${power}$(echo $batt)]"
 	fi
-	if [ "$HOSTNAME" == "visor" ]; then
-		if acpi -a | grep -q on-line; then power='='; else power=''; fi
-		batt="${power}$(acpi -b | awk '{ print $4 }' | cut -d ',' -f 1 | tr '\n' ' ')"
-		batt="[$(echo $batt)]"
-		temp="$(echo $(sensors | grep Core\ 0) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
-		temp="$temp $(echo $(sensors | grep Core\ 1) | cut -f 3 -d ' ' | cut -f 2 -d '+' | cut -f 1 -d '.')°"
+	if [ -x "$(command -v sensors)" ]; then
+		temp=$(sensors | grep -E 'temp1|Core' | cut -f 2 -d '+' | cut -f 1 -d '.' | tr '\n' ' ')
 	fi
 
 	xsetroot -name "${temp} ${batt}   $(~/.tools.realcpu.sh 3) ${cpuload}   $(~/.tools.realmem.sh)   $date"

@@ -7,8 +7,8 @@ function 7z {
 		7zr "$@"
 	fi
 }
-function mkcd { mkdir -p "$1" && cd "$1"; }
-function noaslr { setarch "$(uname -m)" -R "$@"; }
+function mkcd { mkdir -p -- "$1" && cd -- "$1"; }
+function noaslr { setarch "$(uname -m)" -R -- "$@"; }
 function nonet { sg no-network "$@"; }
 function man {
 	env LESS_TERMCAP_md="$(tput bold; tput setaf 1)" \
@@ -47,14 +47,14 @@ function wdump {
 	read filename?'Filename: '
 	filename=$(echo -E "$filename" | tr -d -c '[:alnum:]-_. ' | tr ' ' '-')
 	filename="${filename}.txt"
-	echo $url >> "$filename"
+	echo "$url" >> "$filename"
 	w3m -dump "$url" >> "$filename"
-	vim "$filename"
+	vim -- "$filename"
 }
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
 function pdfsplit { gs -sDEVICE=pdfwrite -dSAFER -o %03d.pdf "$1"; }
 function timestamp { echo [`date +'%x %T.%N'`] Start!; while read line; do echo [`date +'%x %T.%N'`] "$line"; done; echo [`date +'%x %T.%N'`] Done!; }
-function lvim { vim "$(echo "$1" | cut -d : -f 1)" +$(echo "$1" | cut -d : -f 2); }
+function lvim { vim -- "$(echo "$1" | cut -d : -f 1)" +$(echo "$1" | cut -d : -f 2); }
 alias view='vim -R'
 alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 alias sshot='import -window root ~/screen.png'
@@ -97,10 +97,11 @@ function poststrip { # poststrip COUNT FILE...
 }
 
 # computations from stdin
-function linesum {
+alias linesum="linecomp '+'"
+function linecomp {
 	read res
 	while read line; do
-		res=$(($res + $line))
+		res="$(($res $1 $line))"
 	done
 	echo $res
 }
