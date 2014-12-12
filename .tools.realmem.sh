@@ -1,5 +1,5 @@
 #!/bin/sh
-raw="$(cat /proc/meminfo)"
+raw="$(head -5 /proc/meminfo)"
 totmem="$(echo "$raw" | grep '^MemTotal:' | tr -s ' ' | cut -d ' ' -f 2)"
 freemem="$(echo "$raw" | grep '^MemFree:' | tr -s ' ' | cut -d ' ' -f 2)"
 buffmem="$(echo "$raw" | grep '^Buffers:' | tr -s ' ' | cut -d ' ' -f 2)"

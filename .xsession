@@ -24,7 +24,7 @@ fi
 
 while true; do
 	date="$(date +'%a %b %d %H:%M')"
-	cpuload="($(cat /proc/loadavg | cut -d ' ' -f 1-3))"
+	cpuload="($(cut -d ' ' -f 1-3 /proc/loadavg))"
 
 	if [ -x "$(command -v acpi)" ]; then
 		if acpi -a | grep -q on-line; then power='='; else power=''; fi
