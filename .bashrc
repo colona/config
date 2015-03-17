@@ -5,7 +5,7 @@
 source ~/.tools.sh
 
 # exports
-export HISTCONTROL=ignoredups
+HISTCONTROL=ignoredups
 export EDITOR=vim
 export PAGER=less
 export CC=gcc
