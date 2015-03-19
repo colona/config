@@ -1,5 +1,4 @@
 [alias]
-	st=status
 	co=checkout
 	com=checkout master
 	cam=commit -a -m
