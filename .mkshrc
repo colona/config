@@ -16,9 +16,6 @@ alias gdb='gdb -q'
 alias x='exec startx'
 alias pws='~/.password-store.sh'
 alias tm='exec tmux a -d'
-alias radio='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona'
-alias radio64='mplayer -prefer-ipv4 -cache 1024 http://radio.ycc.fr:8000/colona64'
-alias fipradio='mplayer -cache 1024 http://audio.scdn.arkena.com/11016/fip-midfi128.mp3'
 alias valfuel='valgrind --leak-check=full --show-reachable=yes --track-fds=yes --read-var-info=yes --track-origins=yes --malloc-fill=0x42 --free-fill=0x43'
 alias tp1='synclient TouchpadOff=0'
 alias tp0='synclient TouchpadOff=1'
@@ -26,6 +23,7 @@ alias youtube-info='youtube-dl --get-title --get-duration --get-description --ge
 function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
+function radio { mplayer -prefer-ipv4 -cache 1024 "http://radio.ycc.fr:8000/$1"; }
 
 
 # Prompt: just "\u@\h:\w$ ", with the $ changing color according to last $?
