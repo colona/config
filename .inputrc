@@ -1,2 +1,4 @@
+$include /etc/inputrc
+
 set mark-symlinked-directories on
 set completion-ignore-case on
