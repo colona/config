@@ -22,6 +22,7 @@ static const Rule rules[] = {
 	{ "MPlayer",     NULL,       NULL,       0,            True, -1 },
 	{ "mplayer2",     NULL,       NULL,       0,            True, -1 },
 	{ "mpv",     NULL,       NULL,       0,            True, -1 },
+	{ NULL,     NULL,       "QEMU",       0,            True, -1 },
 	{ "XClock",     NULL,       NULL,       0,            True, -1 },
 };
 
