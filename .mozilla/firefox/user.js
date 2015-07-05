@@ -8,7 +8,7 @@ user_pref("browser.download.manager.scanWhenDone", false);
 user_pref("browser.download.manager.retention", 0);
 user_pref("browser.fixup.alternate.enabled", false);
 user_pref("browser.formfill.enable", false);
-user_pref("browser.formfill.expire_days", 0;
+user_pref("browser.formfill.expire_days", 0);
 user_pref("browser.fullscreen.animateUp", 0);
 user_pref("browser.helperApps.deleteTempFileOnExit", true);
 user_pref("browser.history_expire_days", 0);
