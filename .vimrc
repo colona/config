@@ -56,9 +56,9 @@ nnoremap <C-Left> <C-w>h
 nnoremap <C-Down> <C-w>j
 nnoremap <C-Up> <C-w>k
 nnoremap <C-Right> <C-w>l
-nnoremap <S-Left> :bp<CR>
-nnoremap <S-Right> :bn<CR>
-noremap <F2> :silent! :make \| :redraw! \| :botright :cw<cr>
+nnoremap <S-Left> :bprevious<CR>
+nnoremap <S-Right> :bnext<CR>
+noremap <F2> :silent! :make \| :redraw! \| :botright :cwindow<CR>
 nnoremap <F4> :cp<CR>
 nnoremap <F5> :cn<CR>
 noremap <F1> <esc>
@@ -70,6 +70,8 @@ vnoremap * y/<C-r>"<CR>
 " add the current word/selection to the last search
 nnoremap <Leader>* :execute "/".histget("search", -1).'\\|\<'.expand("<cword>").'\>'<CR>
 vnoremap <Leader>* y:execute "/".histget("search", -1).'\\|'.@"<CR>
+" vertical split jump tag
+nnoremap <Leader><C-]> :vsplit<CR>:execute("tag ".expand("<cword>"))<CR>
 
 " xterm-style keys sent from tmux : C-arrows
 if &term =~ '^screen'
@@ -81,9 +83,9 @@ endif
 
 " indentation
 set noexpandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=8
+set softtabstop=8
+set shiftwidth=8
 autocmd filetype make set noexpandtab
 set autoindent
 

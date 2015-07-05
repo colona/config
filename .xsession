@@ -1,7 +1,7 @@
 HOSTNAME="$(hostname)"
 
 case "$HOSTNAME" in
-	klesk) xrandr --output LVDS --auto --output VGA-0 --auto --right-of LVDS;;
+	klesk) xrandr --output LVDS --auto --output HDMI-0 --auto --right-of LVDS;;
 	visor) xrandr --output eDP1 --auto --output DP2-3 --auto --above eDP1;;
 esac
 

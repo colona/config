@@ -13,6 +13,7 @@
 	st=status -sb -uno
 	unstage=reset HEAD
 	uncommit=reset --soft HEAD^
+	mrproper=!git reset --hard && git clean -dfx
 	root=!pwd
 	poule=pull
 	choucroute=checkout
