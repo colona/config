@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function readfield {
 	echo "$(grep 'cpu ' /proc/stat | tr -s ' ' | cut -d ' ' -f "$1")"

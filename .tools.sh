@@ -195,7 +195,15 @@ function __ashex_gas {
 	bin2hex < $output &&
 	rm -f $file $inter $output
 }
+function ashexarmthumb_gas {
+	file=`mktemp` && inter=`mktemp` && output=`mktemp` &&
+	echo -e '.thumb\n.syntax unified' > $file &&
+	cat >> $file &&
+	as -mthumb -o $inter $file &&
+	objcopy -O binary $inter $output &&
+	bin2hex < $output &&
+	rm -f $file $inter $output
+}
 alias ashex32_gas='__ashex_gas --32'
 alias ashex64_gas='__ashex_gas --64'
 alias ashexarm_gas='__ashex_gas'
-alias ashexarmthumb_gas='__ashex_gas -mthumb'
