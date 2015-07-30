@@ -54,6 +54,8 @@ function wdump {
 function pdfmerge { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="$output" -dBATCH "$@"; }
 function pdfsplit { gs -sDEVICE=pdfwrite -dSAFER -o %03d.pdf "$1"; }
 function timestamp { echo [`date +'%x %T.%N'`] 'Start!'; while read line; do echo [`date +'%x %T.%N'`] "$line"; done; echo [`date +'%x %T.%N'`] 'Done!'; }
+function ntpget { # from http://seriot.ch/ntp.php
+	for serv in "$@"; do date -d @$((16#`printf "\xb%-47.s"|nc -uw1 "$serv" 123|xxd -s40 -l4 -p`-2208988800)); done; }
 function lvim { vim "$(echo "$1" | cut -d : -f 1)" +$(echo "$1" | cut -d : -f 2); }
 alias view='vim -R'
 alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
