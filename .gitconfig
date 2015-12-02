@@ -7,12 +7,14 @@
 	d=diff
 	ds=diff --cached
 	da=diff HEAD
+	dc=describe --contains
 	a=add
 	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%an %C(yellow)%ad%Creset %s' --graph --branches --all
 	wdiff=diff --word-diff
 	st=status -sb -uno
 	unstage=reset HEAD
 	uncommit=reset --soft HEAD^
+	killcommit=reset --hard HEAD^
 	mrproper=!git reset --hard && git clean -dfx
 	root=!pwd
 	poule=pull

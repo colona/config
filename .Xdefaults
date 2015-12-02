@@ -1,3 +1,5 @@
+Xcursor.size:		16
+
 URxvt*background:	black
 URxvt*foreground:	white
 URxvt*font:	xft:Monospace:pixelsize=12:antialias=true
