@@ -2,7 +2,7 @@ HOSTNAME="$(hostname)"
 
 case "$HOSTNAME" in
 	klesk) xrandr --output LVDS --auto --output HDMI-0 --auto --right-of LVDS;;
-	visor) xrandr --output eDP1 --auto --output DP2-2 --auto --above eDP1;;
+	visor) xrandr --output eDP-1 --auto --output DP-2-2 --auto --above eDP-1;;
 esac
 
 xset -dpms
@@ -40,4 +40,4 @@ while true; do
 	sleep 1
 done &
 
-exec ~/.dwm/dwm
+exec ~/.dwm/dwm &>> ~/.dwm/logs

@@ -51,7 +51,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, 
 static const char *termcmd[]  = { "/home/colona/.st/st", NULL };
 static const char *gdbtermcmd[]  = { "/home/colona/.st/st", "-e", "gdb", "-q", NULL };
 static const char *cdtermcmd[]  = { "sh", "-c", "cd \"$(xcwd)\" && exec /home/colona/.st/st", NULL };
-static const char *trackpointcmd[]  = { "sh", "-c", "synclient TouchpadOff=\"$((1 - $(synclient | grep TouchpadOff | cut -d '=' -f 2) ))\"", NULL };
+static const char *trackpointcmd[]  = { "sh", "/home/colona/.tools.toogletouchpad.sh", NULL };
 static const char *musiccmd[]  = { "amixer", "set", "Master", "toggle", NULL };
 static const char *lockcmd[]  = { "slock", NULL };
 static const char *volupcmd[]  = { "amixer", "set", "Master", "5%+", NULL };
