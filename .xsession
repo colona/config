@@ -9,8 +9,9 @@ xset -dpms
 xset s off
 xset b off
 setxkbmap us -option compose:caps
+redshift &
 
-if [ "$HOSTNAME" == "klesk" ]; then
+if [ "$HOSTNAME" == "klesk" ] || [ "$HOSTNAME" == "gorre" ]; then
 	mouse="$(xinput | sed -rn '/Optical Mouse/s/.*id=([0-9]+).*/\1/gp')"
 	if [ -n "$mouse" ]; then
 		xinput --set-button-map "$mouse" 1 2 3 4 5 2 2

@@ -110,6 +110,13 @@ function! MyFoldText()
 endfunction
 set foldtext=MyFoldText()
 
+" vim *
+autocmd BufReadPre *.doc,*.odt,*.odp,*.ods,*.pdf,*.rtf silent set ro
+autocmd BufReadPost *.doc silent %!antiword "%"
+autocmd BufReadPost *.odt,*.odp,*.ods silent %!odt2txt "%"
+autocmd BufReadPost *.pdf silent %!pdftotext -nopgbrk -layout -q -eol unix "%" -
+autocmd BufReadPost *.rtf silent %!unrtf --text
+
 " show trailings and 81+ char lines
 highlight ColorColumn ctermbg=red ctermfg=white
 function! WrongSpacingsHL()
