@@ -35,7 +35,7 @@ function radio { mplayer -prefer-ipv4 -cache 1024 "http://radio.ycc.fr:8000/$1";
 # through the bell, wich alert the user visually in many properly configured
 # window managers and terminal multiplexers.
 export HOSTNAME="$(hostname)"
-function _prettypwd {
+_prettypwd() {
 	TRIMPWD=${PWD#${HOME}}
 	if [ ${#PWD} -gt ${#TRIMPWD} ]; then
 		echo -n "~$TRIMPWD"
