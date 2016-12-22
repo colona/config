@@ -13,6 +13,7 @@ alias ls='ls --color=auto'
 alias gdb='gdb -q'
 
 # for new commands
+alias cget='curl -L --remote-name-all --remote-header-name -C -'
 alias x='exec startx'
 alias pws='~/.password-store.sh'
 alias tm='exec tmux a -d'

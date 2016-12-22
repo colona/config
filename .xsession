@@ -10,6 +10,7 @@ xset s off
 xset b off
 setxkbmap us -option compose:caps
 redshift &
+~/.tools.toggletouchpad.sh
 
 if [ "$HOSTNAME" == "klesk" ] || [ "$HOSTNAME" == "gorre" ]; then
 	mouse="$(xinput | sed -rn '/Optical Mouse/s/.*id=([0-9]+).*/\1/gp')"
