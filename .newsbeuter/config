@@ -16,6 +16,8 @@ refresh-on-startup no
 suppress-first-reload yes
 use-proxy yes
 #proxy "tankjr.ycc.fr:3128"
+bookmark-cmd "~/.newsbeuter/bookmark.sh"
+bookmark-autopilot yes
 
 color listnormal white black
 color listfocus yellow blue bold
@@ -34,7 +36,6 @@ unbind-key E
 unbind-key F
 unbind-key f
 unbind-key ^F
-unbind-key ^B
 unbind-key ^N
 unbind-key ^P
 unbind-key D
@@ -61,3 +62,14 @@ bind-key o quit
 bind-key w quit
 bind-key v open-in-browser
 bind-key h toggle-show-read-feeds
+
+bind-key F1 open
+bind-key F2 quit
+bind-key F3 next-unread
+bind-key F4 prev-unread
+bind-key F5 bookmark
+bind-key F7 open-in-browser
+bind-key F9 down
+bind-key F10 up
+bind-key F11 pageup
+bind-key F12 prev-unread
