@@ -9,7 +9,9 @@
 	da=diff HEAD
 	dc=describe --contains
 	a=add
+	sclone=clone --depth=1
 	graph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%an %C(yellow)%ad%Creset %s' --graph --branches --all
+	pgraph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%an %C(yellow)%ad%Creset %s' --graph
 	wdiff=diff --word-diff
 	st=status -sb -uno
 	unstage=reset HEAD
@@ -19,6 +21,7 @@
 	root=!pwd
 	poule=pull
 	choucroute=checkout
+	hamster=checkout master
 
 [user]
 	name = Ivan Delalande
