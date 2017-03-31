@@ -13,19 +13,22 @@ set from="ivan@ycc.fr"
 alternates "colona@ycc.fr|colona0@gmail.com|idelalande@yahoo.fr"
 alternates "delala_i@epita.fr|ivan.delalande@epita.fr|colona@lse.epita.fr"
 alternates "colona@aristanetworks.com|colona@arista.com"
-set use_from="yes"
+set use_from
 set reverse_name
 set reverse_realname
-set envelope_from="yes"
+set envelope_from
+set fast_reply
 set config_charset=utf8
 set editor="vim '+set tw=72'"
 set forward_format="Fwd: %s"
 set forward_quote
 unset mime_forward
 set include
+unignore X-Mailer: User-Agent:
 
 set sort=threads
 set sort_aux=last-date-received
+set strict_threads
 set tilde
 unset markers
 unset beep
@@ -54,6 +57,7 @@ folder-hook . "unmy_hdr From:"
 folder-hook . 'set signature="~/.sig"'
 folder-hook \.epita.* 'my_hdr From: Ivan Delalande <ivan.delalande@epita.fr>'
 folder-hook \.epita.* 'set signature="~/.sig.epita"'
+folder-hook \.epita.lists.* 'my_hdr From: Colona <epita@ycc.fr>'
 folder-hook .*lse.* 'my_hdr From: Colona <colona@lse.epita.fr>'
 folder-hook .*lse.* 'set signature="~/.sig.epita"'
 folder-hook \.arista.* 'my_hdr From: Ivan Delalande <colona@arista.com>'

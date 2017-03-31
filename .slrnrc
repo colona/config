@@ -1,7 +1,7 @@
 set username "delala_i"
 set hostname "epita.fr"
 set realname "Colona"
-set signature ".slrnsig"
+set signature ".sig.epita"
 
 server "news.free.fr" ".jnewsrc-free"
 server "news.epita.fr" ".jnewsrc-epita"
