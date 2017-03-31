@@ -70,6 +70,7 @@ alias sshot='import -window root ~/screen.png'
 alias sshotold='xwd -root | convert xwd:- ~/screen.png'
 alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
+alias wmirror='wget -E -H -nd -nH -p -k --'
 
 # file renamming
 prepend() { # prepend PREFIX FILE...

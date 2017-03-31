@@ -11,6 +11,7 @@ alias cal='cal -m'
 alias objdump='objdump -M intel'
 alias ls='ls --color=auto'
 alias gdb='gdb -q'
+alias aria='aria2c --max-download-limit 9500k -u 1000k --listen-port=4444 --dht-listen-port=4445 -c --'
 
 # for new commands
 alias cget='curl -L --remote-name-all --remote-header-name -C -'
