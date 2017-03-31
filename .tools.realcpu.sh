@@ -1,22 +1,25 @@
 #!/bin/sh
 
-readfield() {
-	grep 'cpu ' /proc/stat | tr -s ' ' | cut -d ' ' -f "$1"
+readstat() {
+	read usr nic sys idl iow irq sfi stl wtv < /proc/stat
+	idle=$((idl + iow))
+	user=$((usr + nic))
+	system=$((sys + irq + sfi + stl))
+	echo "$idle $user $system"
 }
 
-previdle=$(($(readfield 5) + $(readfield 6)))
-prevuser=$(($(readfield 2) + $(readfield 3)))
-prevsys=$(($(readfield 4) + $(readfield 7) + $(readfield 8) + $(readfield 9)))
-
+oldres=($(readstat))
 sleep "$1"
+res=($(readstat))
+diff=(
+	$((res[0] - oldres[0]))
+	$((res[1] - oldres[1]))
+	$((res[2] - oldres[2]))
+)
 
-idle=$(($(readfield 5) + $(readfield 6) - previdle))
-user=$(($(readfield 2) + $(readfield 3) - prevuser))
-sys=$(($(readfield 4) + $(readfield 7) + $(readfield 8) + $(readfield 9) - prevsys))
-tot=$((user + sys + idle))
+total=$((diff[0] + diff[1] + diff[2]))
+prcusr=$((100 * diff[1] / total))
+prcsys=$((100 * diff[2] / total))
+prcsum=$((100 * (diff[1] + diff[2]) / total))
 
-percuser=$((100 * user / tot))
-percsys=$((100 * sys / tot))
-percsum=$((100 * (user + sys) / tot))
-
-echo "${percuser}+${percsys}=${percsum}%"
+echo "${prcusr}+${prcsys}=${prcsum}%"

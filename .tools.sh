@@ -33,6 +33,11 @@ colorize() {
 	shift 2
 	GREP_COLORS="$color" grep -E --color=always "$pattern|" | colorize "$@"
 }
+cpg() {
+	cmd="$1"
+	shift
+	$cmd --color=always "$@" | less -R
+}
 img() {
 	# by http://www.reddit.com/user/xkero
 	for image in "$@"; do
@@ -45,8 +50,8 @@ wdump() {
 	url="$1"
 	echo "$url"
 	read -r filename?'Filename: '
-	filename=$(echo -E "$filename" | tr -d -c '[:alnum:]-_. ' | tr ' ' '-')
-	filename="${filename}.txt"
+	filename="${filename// /-}"
+	filename="${filename//[!0-9A-Za-z_.-]}.txt"
 	echo "$url" >> "$filename"
 	w3m -dump "$url" >> "$filename"
 	vim -- "$filename"

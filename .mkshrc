@@ -28,16 +28,14 @@ function radio { mplayer -prefer-ipv4 -cache 1024 "http://radio.ycc.fr:8000/$1";
 
 
 # Prompt: just "\u@\h:\w$ ", with the $ changing color according to last $?
-# All this \1\r and $'\1' shit is to advise ksh to not count the chars for the
-# length of the prompt. Yeah, it's ugly...
-# \1\r must be at the beginning of the string and declares \1 as a delimiter
-# for non printable characters.
+# All these '\1' are to advise ksh to skip some chars when it computes the
+# length of the prompt. See mksh manpage for details.
 # Having a \a in the prompt allows the shell to signal when a task is finished
 # through the bell, wich alert the user visually in many properly configured
 # window managers and terminal multiplexers.
 export HOSTNAME="$(hostname)"
 _prettypwd() {
-	TRIMPWD=${PWD#${HOME}}
+	TRIMPWD="${PWD#${HOME}}"
 	if [ ${#PWD} -gt ${#TRIMPWD} ]; then
 		echo -n "~$TRIMPWD"
 	else
@@ -46,20 +44,18 @@ _prettypwd() {
 }
 PS1="${USER}@${HOSTNAME}:"'$(_prettypwd)'
 case "$TERM" in
-	*xterm* | *rxvt* | st* ) PS1=$'\1'"$(tput tsl)$PS1"$'\a\1'"$PS1";;
+	xterm*|*rxvt*|st*) PS1=$'\1'"$(tput tsl)$PS1"$'\a\1'"$PS1";;
 esac
 PS1=$'\1\r'"$PS1"
 PS1+=$'\1\a\1'
-PS1+=$'\1''$(if [[ $? -eq 0 ]]; then echo -n "'"$(tput setaf 2)"'";'
+PS1+=$'\1''$(if [ $? -eq 0 ]; then echo -n "'"$(tput setaf 2)"'";'
 PS1+='else echo -n "'"$(tput setaf 1)"'"; fi)'$'\1'
 PS1+=$'$\1'"$(tput sgr0)"$'\1 '
 
 
 # environment
 eval "$(lesspipe 2>/dev/null || lesspipe.sh)" # populate $LESSOPEN and $LESSCLOSE
-if [ "$TERM" != "dumb" ]; then
-	eval "$(dircolors -b)" # enable advanced colors for ls
-fi
+eval "$(dircolors -b)" # enable advanced colors for ls
 HISTFILE="${HOME}/.ksh_history"
 HISTSIZE=4096
 export EDITOR=vim
