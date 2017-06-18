@@ -30,7 +30,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "mpv",      NULL,       NULL,       0,            1,           -1 },
-	{ NULL,       NULL,       "QEMU",     0,            1,           -1 },
+	{ "qemu",     NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
