@@ -6,6 +6,10 @@ include "%L"
 <Multi_key> <O> <K>					: "✔"
 <Multi_key> <n> <o>					: "✗"
 <Multi_key> <N> <O>					: "✘"
+<Multi_key> <t> <u>					: "👍" # 1F44D thumb up
+<Multi_key> <t> <U>					: "🖒" # 1F592 thumb up 2
+<Multi_key> <t> <d>					: "👎" # 1F44E thumb down
+<Multi_key> <s> <o>					: "🤘"
 <Multi_key> <s> <t>					: "ﬆ"
 <Multi_key> <i> <i>					: "ℹ" # 2139 information source
 <Multi_key> <o> <C>					: "℃" # 2103 degree celcius
