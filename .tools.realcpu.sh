@@ -1,7 +1,7 @@
 #!/bin/sh
 
 readstat() {
-	read usr nic sys idl iow irq sfi stl wtv < /proc/stat
+	read usr nic sys idl iow irq sfi stl __ < /proc/stat
 	idle=$((idl + iow))
 	user=$((usr + nic))
 	system=$((sys + irq + sfi + stl))
@@ -9,7 +9,7 @@ readstat() {
 }
 
 oldres=($(readstat))
-sleep "$1"
+sleep "${1:-1}"
 res=($(readstat))
 diff=(
 	$((res[0] - oldres[0]))

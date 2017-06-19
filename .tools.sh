@@ -57,13 +57,36 @@ wdump() {
 	vim -- "$filename"
 	sed -ri '/^(Advertisement|Continue reading the main story|Share This Page|Share This Article|Photo)$/d' -- "$filename"
 }
+ntpget() { # from http://seriot.ch/ntp.php
+	for serv in "$@"; do date -d @$((16#$(printf "\xb%-47.s"|nc -uw1 "$serv" 123|xxd -s40 -l4 -p)-2208988800)); done;
+}
+remind() {
+	time="$1"
+	shift
+	[ "${time:0:1}" = '+' ] && time="now $time"
+	echo $"cat <<EOF\n$@\nEOF" | at "$time"
+}
+nohomerun() {
+	dir="$(mktemp -d)" || return 1
+	cp $HOME/.Xauthority $dir/
+	sudo unshare -m sh -c "mount --bind $dir/ $HOME &&
+		exec su $USER -c 'exec $1'"
+	echo rm -rf "$dir"
+}
+overlayrun() {
+	dir="$(mktemp -d)" || return 1
+	mkdir "$dir/u" "$dir/w"
+	cp $HOME/.Xauthority $dir/u/
+	sudo unshare -m mksh -c "mount -t overlay overlay -olowerdir=$1,upperdir=$dir/u,workdir=$dir/w $1 &&
+		exec su $USER -c 'exec $2'"
+	echo rm -rf "$dir"
+}
 weather() { curl "http://wttr.in/$1"; }
 pdfmerge() { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile="$output" -dBATCH "$@"; }
 pdfsplit() { gs -sDEVICE=pdfwrite -dSAFER -dAutoRotatePages=/None -o %03d.pdf "$1"; }
-timestamp() { echo "[$(date +'%x %T.%N')]" 'Start!'; while read -r line; do echo "[$(date +'%x %T.%N')]" "$line"; done; echo "[$(date +'%x %T.%N')]" 'Done!'; }
-ntpget() { # from http://seriot.ch/ntp.php
-	for serv in "$@"; do date -d @$((16#$(printf "\xb%-47.s"|nc -uw1 "$serv" 123|xxd -s40 -l4 -p)-2208988800)); done; }
-lvim() { vim "$(echo "$1" | cut -d : -f 1)" +$(echo "$1" | cut -d : -f 2); }
+timestamp() { _t() { echo "[$(date +'%x %T.%N')] $1"; }; _t Start; while read -r line; do _t "$line"; done; _t Done; }
+lvim() { a="$@"; f="${a%%:*}"; l="$(echo "$@" | cut -s -d : -f 2)"; vim $f ${l:++}$l; }
+nfoview() { iconv -f CP437 -t UTF-8 -- "$1" | less; }
 alias view='vim -R'
 alias rot13='tr abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM'
 alias sshot='import -window root ~/screen.png'
@@ -71,6 +94,9 @@ alias sshotold='xwd -root | convert xwd:- ~/screen.png'
 alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 alias wmirror='wget -E -H -nd -nH -p -k --'
+alias urldecode='python -c "import sys, urllib.parse; print(urllib.parse.unquote_plus(sys.argv[1]))"'
+alias overlayhome='overlayrun $HOME'
+alias chromium='overlayhome chromium'
 
 # file renamming
 prepend() { # prepend PREFIX FILE...

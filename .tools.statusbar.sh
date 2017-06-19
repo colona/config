@@ -10,8 +10,8 @@ if [ -x "$(command -v sensors)" ]; then
 fi
 if [ -x "$(command -v acpi)" ]; then
         batt="$(acpi -b | cut -d ' ' -f 4)"
-        batt="$(acpi -a | grep -q on-line && echo '=')${batt//[$'\n',]}"
+        batt=" [$(acpi -a | grep -q on-line && echo '=')${batt//[$'\n',]}]"
 fi
 
-echo "${temp} [${batt}] ${realcpu} (${cpuload}) $(~/.tools.realmem.sh)   $date"
+echo "${temp}${batt} ${realcpu} (${cpuload}) $(~/.tools.realmem.sh)   $date"
 sleep 1
