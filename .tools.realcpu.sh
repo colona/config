@@ -1,7 +1,7 @@
 #!/bin/sh
 
 readstat() {
-	read usr nic sys idl iow irq sfi stl __ < /proc/stat
+	read __ usr nic sys idl iow irq sfi stl __ < /proc/stat
 	idle=$((idl + iow))
 	user=$((usr + nic))
 	system=$((sys + irq + sfi + stl))
