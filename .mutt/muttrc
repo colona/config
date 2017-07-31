@@ -18,7 +18,7 @@ set reverse_name
 set reverse_realname
 set envelope_from
 set fast_reply
-set config_charset=utf8
+set config_charset="utf-8"
 set editor="vim '+set tw=72'"
 set forward_format="Fwd: %s"
 set forward_quote
@@ -32,7 +32,8 @@ set strict_threads
 set tilde
 unset markers
 unset beep
-set charset="utf8"
+set charset="utf-8"
+set send_charset="us-ascii:utf-8"
 set delete
 unset help
 unset mark_old
