@@ -81,16 +81,19 @@ overlayrun() {
 		exec su $USER -c 'exec $2'"
 	echo rm -rf "$dir"
 }
-totp() {
-	hkey="$(echo $1 | base32 -d | xxd -p)"
-	exp="$((${2:-30} - $(date +%s) % ${2:-30}))"
-	printf '%016x' "$(($(date +%s) / ${2:-30}))" | xxd -p -r |
+hotp() {
+	hkey="$(echo "$1" | tr 'a-z ' 'A-Z' | base32 -d | xxd -p)"
+	printf '%016x' "${2:-0}" | xxd -p -r |
 		openssl dgst -sha1 -mac HMAC -macopt "hexkey:$hkey" |
 		if read __ dgst && [ ${#dgst} -eq 40 ]; then
 			off="$((16#${dgst:39} * 2))"
 			hotp="0000000$((16#${dgst:$off:8} & 0x7fffffff))"
-			echo "${hotp:$((${#hotp})) - ${3:-6}} for $exp seconds"
+			echo "${hotp:${#hotp} - ${3:-6}}"
 		fi
+}
+totp() {
+	echo -n "for $((${2:-30} - $(date +%s) % ${2:-30})) seconds: "
+	hotp "$1" "$(($(date +%s) / ${2:-30} + ${4:-0}))" "${3:-6}"
 }
 weather() { curl "http://wttr.in/$1"; }
 pdfmerge() { output="$1"; shift; gs -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -sOutputFile="$output" -dBATCH "$@"; }
