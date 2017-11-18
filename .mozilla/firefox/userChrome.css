@@ -1,0 +1,21 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#TabsToolbar .tab-close-button {
+	display: none !important;
+}
+#TabsToolbar .tabbrowser-tab:not([pinned]) {
+	min-width: 1em !important;
+	clip-width: 1em !important;
+	max-width: 8em !important;
+}
+#TabsToolbar .tabbrowser-tab[selected] {
+	font-weight: bold !important;
+	color: #000000 !important;
+}
+#TabsToolbar .tabbrowser-tab[unread] {
+	font-style: italic !important;
+	color: #770000 !important;
+}
+#TabsToolbar .tabbrowser-tab[pending] {
+	opacity: 0.5 !important;
+}
