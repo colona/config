@@ -7,15 +7,15 @@
 #max_peers = 100
 
 # Same as above but for seeding completed torrents (-1 = same as downloading)
-#min_peers_seed = 10
-#max_peers_seed = 50
+min_peers_seed = -1
+max_peers_seed = -1
 
 # Maximum number of simultanious uploads per torrent.
 max_uploads = 50
 
 # Global upload and download rate in KiB. "0" for unlimited.
 download_rate = 0
-upload_rate = 80
+upload_rate = 9900
 
 # Default directory to save the downloaded torrents.
 #directory = ./
@@ -23,7 +23,7 @@ upload_rate = 80
 # Default session directory. Make sure you don't run multiple instance
 # of rtorrent using the same session directory. Perhaps using a
 # relative path?
-session = ~/.torrent/
+session = ~/torrents/
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
@@ -32,12 +32,6 @@ session = ~/.torrent/
 
 # Close torrents when diskspace is low.
 #schedule = low_diskspace,5,60,close_low_diskspace=100M
-
-# Stop torrents when reaching upload ratio in percent,
-# when also reaching total upload in bytes, or when
-# reaching final upload ratio in percent.
-# example: stop at ratio 2.0 with at least 200 MB uploaded, or else ratio 20.0
-#schedule = ratio,60,60,"stop_on_ratio=200,200M,2000"
 
 # The ip address reported to the tracker.
 #ip = 127.0.0.1
@@ -56,9 +50,9 @@ port_random = no
 
 # Check hash for finished torrents. Might be usefull until the bug is
 # fixed that causes lack of diskspace not to be properly reported.
-#check_hash = no
+check_hash = no
 
-# Set whetever the client should try to connect to UDP trackers.
+# Set whether the client should try to connect to UDP trackers.
 use_udp_trackers = yes
 
 # Alternative calls to bind and ip that should handle dynamic ip's.
@@ -83,7 +77,7 @@ encryption = require
 
 # UDP port to use for DHT. 
 # 
-# dht_port = 3723
+dht_port = 3723
 
 # Enable peer exchange (for torrents not marked private)
 #
