@@ -3,6 +3,7 @@ HOSTNAME="$(hostname)"
 case "$HOSTNAME" in
 	klesk) xrandr --output LVDS --auto --output HDMI-0 --auto --right-of LVDS;;
 	visor) xrandr --output eDP-1 --auto --output DP-2-2 --auto --above eDP-1;;
+	gorre) xrandr --fb 1920x1080;;
 esac
 
 xset -dpms

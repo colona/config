@@ -25,7 +25,7 @@ alias youtube-info='youtube-dl --get-title --get-duration --get-description --ge
 function addspamed { echo "$1" >> ~/Maildir/spammed; }
 function addspamer { echo "$1" >> ~/Maildir/spammer; }
 function addspamcontent { echo "$1" >> ~/Maildir/spam_content; }
-function radio { mplayer -prefer-ipv4 -cache 1024 "http://radio.ycc.fr:8000/$1"; }
+function radio { mpv "http://radio.ycc.fr/$1"; }
 
 
 # Prompt: just "\u@\h:\w$ ", with the $ changing color according to last $?
