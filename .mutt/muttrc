@@ -64,6 +64,15 @@ folder-hook .*lse.* 'set signature="~/.sig.epita"'
 folder-hook \.arista.* 'my_hdr From: Ivan Delalande <colona@arista.com>'
 folder-hook \.arista.* 'set signature="~/.sig.arista"'
 
+group -group ksmaint -addr torvalds@linux-foundation.org -addr gregkh@linuxfoundation.org -addr greg@kroah.com -addr davem@davemloft.net
+group -group kmaint -addr ebiederm@xmission.com -addr keescook@chromium.org -addr viro@ZenIV.linux.org.uk -addr akpm@linux-foundation.org -addr edumazet@google.com -addr eric.dumazet@gmail.com -addr arnd@arndb.de -addr linux@armlinux.org.uk -addr helgaas@kernel.org -addr dhowells@redhat.com -addr tglx@linutronix.de -addr pmladek@suse.com -addr dmitry.torokhov@gmail.com -addr mingo@kernel.org -addr herbert@gondor.apana.org.au -addr James.Bottomley@HansenPartnership.com -addr darrick.wong@oracle.com -addr axboe@kernel.dk -addr corbet@lwn.net -addr yamada.masahiro@socionext.com -addr mst@redhat.com -addr miklos@szeredi.hu -addr pbonzini@redhat.com -addr paul@paul-moore.com -addr rostedt@goodmis.org -addr tytso@mit.edu -addr will.deacon@arm.com -addr jeyu@kernel.org -addr kzak@redhat.com -addr stephen@networkplumber.org -addr sfr@canb.auug.org.au -addr pablo@netfilter.org -addr olof@lixom.net -addr gitster@pobox.com
+folder-hook . 'uncolor index "%f ksmaint"'
+folder-hook . 'uncolor index "%f kmaint"'
+folder-hook . 'uncolor index "%C ksmaint (~s GIT|~s PULL|~s pull)"'
+folder-hook \.kernel.* 'color index brightyellow black "%f ksmaint"'
+folder-hook \.kernel.* 'color index yellow black "%f kmaint"'
+folder-hook \.kernel.* 'color index green black "%C ksmaint (~s GIT|~s PULL|~s pull)"'
+
 bind index j next-unread
 bind index k previous-unread
 bind index <up> previous-entry
