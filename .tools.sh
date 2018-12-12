@@ -257,3 +257,55 @@ ashexarmthumb_gas() {
 alias ashex32_gas='__ashex_gas --32'
 alias ashex64_gas='__ashex_gas --64'
 alias ashexarm_gas='__ashex_gas'
+
+# torrent files decoder
+benc_getpos() { cat /proc/self/fdinfo/0 | if read __ p; then echo $p >&2; fi }
+benc_getint() {
+	i="$2"
+	while read -r -n 1 c; do
+		case "$c" in
+			'-') i='-';;
+			[0123456789]) i="$i$c";;
+			"${1:-e}") echo -n "$i"; return 0;;
+			*) exit 1;;
+		esac
+	done
+}
+benc_getstr() {
+	len="$(benc_getint : $1)"
+	test "$len" -eq 0 && return 0
+	read -r -n $len s || exit 1
+	echo -n "$s" | sed 's/\\/\\\\/g; s/"/\\"/g'
+}
+benc_getlist() { benc_dispatch && while v="$(benc_dispatch)"; do echo -n ", $v"; done }
+benc_getdict() {
+	mult=0
+	while k="$(benc_dispatch)"; do
+		test $mult -eq 1 && echo -n ', '
+		case "$k" in
+			'"pieces"') echo -n "$k: "; head -c "$(benc_getint :)" | wc -l;;
+			'"info"') benc_getpos; echo "$k: $(benc_dispatch)"; benc_getpos;;
+			*) echo "$k: $(benc_dispatch)";;
+		esac
+		mult=1
+	done
+}
+benc_dispatch() {
+	read -r -n 1 c
+	case "$c" in
+		i) benc_getint;;
+		[0123456789]) echo -n '"'"$(benc_getstr "$c")"'"';;
+		l) echo -n "[$(benc_getlist)]";;
+		d) echo -n "{$(benc_getdict)}";;
+		e) return 1;;
+	esac
+}
+torrenthash() {
+	offs="$(LC_ALL=C benc_dispatch < "$1" 2>&1 >/dev/null)"
+	echo $offs | if read b e; then
+		dd if="$1" status=none skip=$b bs=1 count=$(($e - $b)) |
+			sha1sum | if read h __; then echo $h; fi
+	fi
+}
+torrent2js() { LC_ALL=C benc_dispatch < "$1" 2> /dev/null; }
+torrent2jq() { torrent2js "$1" | jq .; }
