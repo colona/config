@@ -14,6 +14,7 @@
 	pgraph=log --pretty=format:'%Cred%h %Cgreen%d%Creset %C(cyan)%an %C(yellow)%ad%Creset %s' --graph
 	wdiff=diff --word-diff
 	st=status -sb -uno
+	lasttag=describe --abbrev=0
 	unstage=reset HEAD
 	uncommit=reset --soft HEAD^
 	killcommit=reset --hard HEAD^

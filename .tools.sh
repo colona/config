@@ -109,6 +109,7 @@ alias mkpass='</dev/urandom tr -dc "[:alnum:]" | head -c12; echo'
 alias mkpasse='</dev/urandom tr -dc "[:graph:]" | head -c16; echo'
 alias wmirror='wget -E -H -nd -nH -p -k --'
 alias urldecode='python -c "import sys, urllib.parse; print(urllib.parse.unquote_plus(sys.argv[1]))"'
+alias urlencode='python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1]))"'
 alias overlayhome='overlayrun $HOME'
 alias chromium='overlayhome chromium'
 
